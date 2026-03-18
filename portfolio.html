@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — AI Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030712;
+    --surface: #0d1117;
+    --border: rgba(99,255,200,0.12);
+    --accent: #00ffaa;
+    --accent2: #7c3aed;
+    --accent3: #06b6d4;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --card-bg: rgba(13,17,23,0.8);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.15s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(0,255,170,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s ease, width 0.2s, height 0.2s;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,170,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,170,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
+  }
+  .orb-1 { width: 500px; height: 500px; background: #7c3aed; top: -100px; left: -100px; animation: driftA 18s ease-in-out infinite; }
+  .orb-2 { width: 400px; height: 400px; background: #00ffaa; bottom: 10%; right: -50px; animation: driftB 22s ease-in-out infinite; }
+  .orb-3 { width: 300px; height: 300px; background: #06b6d4; top: 50%; left: 40%; animation: driftC 16s ease-in-out infinite; }
+
+  @keyframes driftA { 0%,100%{transform:translate(0,0)} 50%{transform:translate(80px,60px)} }
+  @keyframes driftB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-60px,-80px)} }
+  @keyframes driftC { 0%,100%{transform:translate(0,0)} 33%{transform:translate(40px,-40px)} 66%{transform:translate(-40px,40px)} }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(3,7,18,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--muted); }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+  /* HERO */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px 80px;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-title {
+    font-size: clamp(52px, 8vw, 120px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -3px;
+    margin-bottom: 40px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+  .hero-title .line-accent { color: var(--accent); }
+  .hero-title .line-dim { color: var(--muted); font-weight: 400; }
+  .hero-title .line-gradient {
+    background: linear-gradient(135deg, var(--accent3), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-desc {
+    max-width: 560px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 56px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+  .hero-desc strong { color: var(--text); font-weight: 400; }
+  .hero-actions {
+    display: flex; gap: 20px; align-items: center;
+    opacity: 0; animation: fadeUp 0.8s ease 0.9s forwards;
+  }
+  .btn-primary {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    cursor: none;
+    text-decoration: none;
+    font-weight: 700;
+    transition: box-shadow 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 40px rgba(0,255,170,0.4);
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Stats row */
+  .hero-stats {
+    position: absolute; bottom: 80px; right: 48px;
+    display: flex; gap: 48px;
+    opacity: 0; animation: fadeUp 0.8s ease 1.1s forwards;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 48px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; animation: fadeUp 0.8s ease 1.3s forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--muted);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute; left: -100%; top: 0;
+    width: 100%; height: 100%;
+    background: var(--accent);
+    animation: scanLine 2s ease-in-out infinite;
+  }
+  @keyframes scanLine { 0%{left:-100%} 100%{left:100%} }
+
+  /* PROJECTS SECTION */
+  .section {
+    position: relative; z-index: 1;
+    padding: 120px 48px;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .section-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 72px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+  .section-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  /* Project Cards */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    gap: 48px;
+    align-items: start;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--card-accent, var(--accent));
+    transition: height 0.4s ease;
+  }
+  .project-card:hover::before { height: 100%; }
+  .project-card:hover {
+    background: rgba(13,17,23,0.98);
+    border-color: var(--card-accent, var(--accent));
+  }
+  .project-card:hover .project-num { color: var(--card-accent, var(--accent)); }
+
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 64px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    transition: color 0.3s;
+    letter-spacing: -3px;
+  }
+  .project-meta {}
+  .project-tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .tag-highlight {
+    border-color: var(--card-accent, var(--accent));
+    color: var(--card-accent, var(--accent));
+  }
+  .project-name {
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+  .project-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 520px;
+  }
+  .project-features {
+    margin-top: 24px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .feature {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .feature::before {
+    content: '▸';
+    color: var(--card-accent, var(--accent));
+    font-size: 9px;
+  }
+  .project-status {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 16px;
+    min-width: 120px;
+  }
+  .status-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    background: rgba(0,255,170,0.08);
+    border: 1px solid rgba(0,255,170,0.2);
+    color: var(--accent);
+  }
+  .status-badge.building {
+    background: rgba(124,58,237,0.08);
+    border-color: rgba(124,58,237,0.3);
+    color: var(--accent2);
+  }
+  .status-badge.concept {
+    background: rgba(6,182,212,0.08);
+    border-color: rgba(6,182,212,0.3);
+    color: var(--accent3);
+  }
+  .arrow-link {
+    width: 44px; height: 44px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 18px;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .arrow-link:hover {
+    background: var(--card-accent, var(--accent));
+    color: var(--bg);
+    border-color: var(--card-accent, var(--accent));
+  }
+
+  /* ABOUT SECTION */
+  .about-section {
+    position: relative; z-index: 1;
+    padding: 120px 48px;
+    background: rgba(13,17,23,0.6);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .about-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center;
+  }
+  .about-left {}
+  .about-title {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 0.95;
+    margin-bottom: 32px;
+  }
+  .about-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .about-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .about-right {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  }
+  .skill-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 28px;
+    transition: border-color 0.3s;
+  }
+  .skill-block:hover { border-color: var(--accent); }
+  .skill-icon {
+    font-size: 22px; margin-bottom: 12px;
+  }
+  .skill-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .skill-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* CONTACT SECTION */
+  .contact-section {
+    position: relative; z-index: 1;
+    padding: 120px 48px;
+    max-width: 1400px; margin: 0 auto;
+    text-align: center;
+  }
+  .contact-title {
+    font-size: clamp(40px, 7vw, 100px);
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: 0.9;
+    margin-bottom: 32px;
+  }
+  .contact-title .hollow {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+    color: transparent;
+  }
+  .contact-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 48px;
+    letter-spacing: 1px;
+  }
+  .contact-links {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  }
+  .contact-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,255,170,0.05);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 100%;
+  }
+  .footer-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+  .footer-marquee {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(0,255,170,0.3);
+    letter-spacing: 4px;
+    overflow: hidden;
+    width: 200px;
+  }
+  .marquee-inner {
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+  }
+  @keyframes marquee { from{transform:translateX(100%)} to{transform:translateX(-100%)} }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Terminal line decoration */
+  .terminal-line {
+    position: fixed;
+    bottom: 20px; left: 48px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(0,255,170,0.25);
+    letter-spacing: 2px;
+    z-index: 50;
+    pointer-events: none;
+  }
+  .blink {
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 80px; }
+    .section { padding: 80px 24px; }
+    .project-card { grid-template-columns: 1fr; gap: 24px; padding: 32px 24px; }
+    .project-num { font-size: 40px; }
+    .about-inner { grid-template-columns: 1fr; gap: 48px; }
+    .about-right { grid-template-columns: 1fr 1fr; }
+    .hero-stats { position: static; margin-top: 48px; justify-content: flex-start; }
+    .contact-section { padding: 80px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="terminal-line">SYSTEM.ONLINE<span class="blink">_</span></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>//</span> AI.DEV</div>
+  <div class="nav-links">
+    <a href="#proyectos">Proyectos</a>
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <a href="#contacto" class="nav-cta">Conectar</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Developer · IA · Human Experience</div>
+  <h1 class="hero-title">
+    <span class="line-dim">Construyo apps</span><br>
+    <span class="line-accent">que piensan</span><br>
+    <span class="line-gradient">contigo.</span>
+  </h1>
+  <p class="hero-desc">
+    Desarrollo aplicaciones donde la <strong>inteligencia artificial</strong> no reemplaza al humano —
+    la amplifica. Proyectos en salud mental, bienestar emocional y entornos de ventas.
+  </p>
+  <div class="hero-actions">
+    <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+    <a href="#sobre-mi" class="btn-ghost">Sobre mí</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Apps en desarrollo</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">AI</div>
+      <div class="stat-label">Core technology</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Impacto potencial</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="proyectos">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">// 001 — Proyectos</div>
+      <h2 class="section-title">Apps en desarrollo</h2>
+    </div>
+    <div class="section-count">03 proyectos activos</div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- PROJECT 1 -->
+    <div class="project-card" style="--card-accent: #00ffaa;">
+      <div class="project-num">01</div>
+      <div class="project-meta">
+        <div class="project-tags">
+          <span class="tag tag-highlight">Salud Mental</span>
+          <span class="tag">Psicología</span>
+          <span class="tag">Transcripción IA</span>
+          <span class="tag">Copiloto</span>
+        </div>
+        <h3 class="project-name">PsycoAssist AI</h3>
+        <p class="project-desc">
+          Copiloto inteligente para psicólogos que gestiona tiempo, graba sesiones,
+          transcribe en tiempo real y sugiere diagnósticos y preguntas para enriquecer la terapia.
+        </p>
+        <div class="project-features">
+          <span class="feature">Grabación y transcripción automática de sesiones</span>
+          <span class="feature">Sugerencias de diagnóstico basadas en DSM-5</span>
+          <span class="feature">Preguntas contextuales en tiempo real</span>
+          <span class="feature">Gestión de agenda y expedientes</span>
+        </div>
+      </div>
+      <div class="project-status">
+        <span class="status-badge building">Building</span>
+        <a href="#" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card" style="--card-accent: #7c3aed;">
+      <div class="project-num">02</div>
+      <div class="project-meta">
+        <div class="project-tags">
+          <span class="tag tag-highlight">Bienestar</span>
+          <span class="tag">Emociones</span>
+          <span class="tag">Regulación</span>
+          <span class="tag">Terapia Digital</span>
+        </div>
+        <h3 class="project-name">EmotiFlow</h3>
+        <p class="project-desc">
+          Aplicación para medir, comprender y regular emociones. Ataca el estrés crónico
+          y trastornos básicos a través de técnicas validadas potenciadas por IA.
+        </p>
+        <div class="project-features">
+          <span class="feature">Medición continua del estado emocional</span>
+          <span class="feature">Protocolos de regulación personalizados</span>
+          <span class="feature">Seguimiento de patrones y triggers</span>
+          <span class="feature">Intervenciones basadas en TCC y Mindfulness</span>
+        </div>
+      </div>
+      <div class="project-status">
+        <span class="status-badge building">Building</span>
+        <a href="#" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card" style="--card-accent: #06b6d4;">
+      <div class="project-num">03</div>
+      <div class="project-meta">
+        <div class="project-tags">
+          <span class="tag tag-highlight">Ventas</span>
+          <span class="tag">Persuasión</span>
+          <span class="tag">Estrés Laboral</span>
+          <span class="tag">Performance</span>
+        </div>
+        <h3 class="project-name">SalesFlow AI</h3>
+        <p class="project-desc">
+          Herramienta para equipos de ventas que gestiona el estrés laboral, mejora
+          conductas, potencia la persuasión y optimiza la influencia en cada interacción.
+        </p>
+        <div class="project-features">
+          <span class="feature">Coach de ventas impulsado por IA</span>
+          <span class="feature">Gestión del estrés en tiempo real</span>
+          <span class="feature">Técnicas de persuasión e influencia adaptativas</span>
+          <span class="feature">Análisis de patrones conductuales del equipo</span>
+        </div>
+      </div>
+      <div class="project-status">
+        <span class="status-badge concept">Concept</span>
+        <a href="#" class="arrow-link">→</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="sobre-mi">
+  <div class="about-inner">
+    <div class="about-left">
+      <div class="section-tag">// 002 — Sobre mí</div>
+      <h2 class="about-title">
+        Tecnología<br>con <em>propósito</em><br>humano.
+      </h2>
+      <p class="about-text">
+        Desarrollo aplicaciones donde la IA no es el fin, sino el medio. Me especializo
+        en construir herramientas que resuelven problemas reales en salud, bienestar
+        y productividad.
+      </p>
+      <p class="about-text">
+        Cada proyecto nace de una necesidad concreta — mejorar la vida de psicólogos,
+        ayudar a personas a entenderse emocionalmente, o potenciar equipos de ventas
+        sin sacrificar el bienestar.
+      </p>
+    </div>
+    <div class="about-right">
+      <div class="skill-block">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-name">IA Generativa</div>
+        <div class="skill-desc">LLMs, RAG, embeddings y agentes para interfaces conversacionales</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">📱</div>
+        <div class="skill-name">App Development</div>
+        <div class="skill-desc">Apps móviles y web con foco en UX y experiencias fluidas</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">🎙️</div>
+        <div class="skill-name">Audio & NLP</div>
+        <div class="skill-desc">Transcripción, análisis de sentimientos y procesamiento de voz</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">Producto & UX</div>
+        <div class="skill-desc">De la idea al producto — diseño centrado en el usuario real</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contacto">
+  <div class="section-tag">// 003 — Contacto</div>
+  <h2 class="contact-title">
+    <span class="hollow">¿Tienes una</span><br>
+    idea?
+  </h2>
+  <p class="contact-sub">Hablemos de cómo la IA puede transformarla en realidad.</p>
+  <div class="contact-links">
+    <a href="mailto:tu@email.com" class="contact-link">✉ Email</a>
+    <a href="#" class="contact-link">in LinkedIn</a>
+    <a href="#" class="contact-link">⌥ GitHub</a>
+    <a href="#" class="contact-link">𝕏 Twitter</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2025 — AI Developer Portfolio</div>
+  <div class="footer-marquee">
+    <div class="marquee-inner">AI · HEALTH · EMOTION · SALES · FUTURE · HUMAN ·&nbsp;</div>
+  </div>
+  <div class="footer-text">Santiago, Chile</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  // Hover effects
+  document.querySelectorAll('a, button, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2.5)';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .skill-block').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(40px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
