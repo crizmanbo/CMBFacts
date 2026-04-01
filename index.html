@@ -21,425 +21,126 @@
   --font-h:   'Syne', sans-serif;
   --font-m:   'JetBrains Mono', monospace;
 }
-
-/* ── RESET ── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-m);
-  background: var(--bg);
-  color: var(--txt);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── SCROLLBAR ── */
+body { font-family: var(--font-m); background: var(--bg); color: var(--txt); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(0,255,170,0.25); border-radius: 4px; }
-
-/* ── BACKGROUND GRID ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(rgba(0,255,170,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,170,0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── BACKGROUND ORBS — verde teal profundo ── */
-.bg-orb {
-  position: fixed; border-radius: 50%; filter: blur(130px);
-  pointer-events: none; z-index: 0;
-}
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,255,170,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,170,0.025) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+.bg-orb { position: fixed; border-radius: 50%; filter: blur(130px); pointer-events: none; z-index: 0; }
 .orb1 { width: 700px; height: 700px; background: #0a3d2e; opacity: .45; top: -200px; right: -200px; animation: driftA 20s ease-in-out infinite; }
-.orb2 { width: 600px; height: 600px; background: #00ffaa;  opacity: .15; bottom: 5%;  left: -180px; animation: driftB 25s ease-in-out infinite; }
-.orb3 { width: 450px; height: 450px; background: #052e24;  opacity: .55; top: 45%; right: 8%; animation: driftC 18s ease-in-out infinite; }
-
+.orb2 { width: 600px; height: 600px; background: #00ffaa; opacity: .15; bottom: 5%; left: -180px; animation: driftB 25s ease-in-out infinite; }
+.orb3 { width: 450px; height: 450px; background: #052e24; opacity: .55; top: 45%; right: 8%; animation: driftC 18s ease-in-out infinite; }
 @keyframes driftA { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,80px)} }
 @keyframes driftB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(80px,-60px)} }
 @keyframes driftC { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-50px,50px)} 66%{transform:translate(50px,-50px)} }
-
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  padding: 20px 48px;
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(4,13,15,.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo {
-  font-family: var(--font-h);
-  font-size: 18px; font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--txt);
-}
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(4,13,15,.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: var(--font-h); font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: var(--txt); }
 .nav-logo span { color: var(--green); }
-.nav-tag {
-  font-size: 10px; color: var(--muted);
-  letter-spacing: 3px; text-transform: uppercase;
-  margin-top: 2px;
-}
+.nav-tag { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-top: 2px; }
 .nav-links { display: flex; gap: 36px; }
-.nav-links a {
-  font-size: 13px; color: var(--muted);
-  text-decoration: none; letter-spacing: 1px;
-  transition: color .2s; position: relative;
-}
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -3px; left: 0;
-  width: 0; height: 1px; background: var(--green);
-  transition: width .3s;
-}
+.nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 1px; transition: color .2s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--green); transition: width .3s; }
 .nav-links a:hover { color: var(--green); }
 .nav-links a:hover::after { width: 100%; }
-.nav-cta {
-  font-family: var(--font-h);
-  font-size: 13px; font-weight: 600;
-  color: var(--bg); background: var(--green);
-  padding: 9px 22px; border-radius: 6px;
-  text-decoration: none; letter-spacing: .5px;
-  transition: all .2s; box-shadow: 0 0 20px rgba(0,255,170,.25);
-}
+.nav-cta { font-family: var(--font-h); font-size: 13px; font-weight: 600; color: var(--bg); background: var(--green); padding: 9px 22px; border-radius: 6px; text-decoration: none; letter-spacing: .5px; transition: all .2s; box-shadow: 0 0 20px rgba(0,255,170,.25); }
 .nav-cta:hover { background: #00e699; box-shadow: 0 0 36px rgba(0,255,170,.45); }
-
-/* ── HERO ── */
-.hero {
-  position: relative; z-index: 1;
-  min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 130px 48px 80px;
-  max-width: 1200px; margin: 0 auto;
-}
-.hero-pre {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 11px; color: var(--green);
-  letter-spacing: 3px; text-transform: uppercase;
-  margin-bottom: 28px;
-  opacity: 0; animation: fadeUp .8s ease .2s forwards;
-}
-.hero-pre::before {
-  content: ''; width: 6px; height: 6px;
-  border-radius: 50%; background: var(--green);
-  animation: blink 1.4s infinite;
-}
-.hero-title {
-  font-family: var(--font-h);
-  font-size: clamp(42px, 6vw, 80px);
-  font-weight: 800; line-height: 1.05;
-  letter-spacing: -3px; color: var(--txt);
-  margin-bottom: 24px;
-  opacity: 0; animation: fadeUp .8s ease .4s forwards;
-}
-.hero-title em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--green), var(--cyan));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hero-sub {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px; font-weight: 400;
-  color: var(--muted); line-height: 1.75;
-  max-width: 580px; margin-bottom: 48px;
-  opacity: 0; animation: fadeUp .8s ease .6s forwards;
-}
+.hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 130px 48px 80px; max-width: 1200px; margin: 0 auto; }
+.hero-pre { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--green); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 28px; opacity: 0; animation: fadeUp .8s ease .2s forwards; }
+.hero-pre::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 1.4s infinite; }
+.hero-title { font-family: var(--font-h); font-size: clamp(42px, 6vw, 80px); font-weight: 800; line-height: 1.05; letter-spacing: -3px; color: var(--txt); margin-bottom: 24px; opacity: 0; animation: fadeUp .8s ease .4s forwards; }
+.hero-title em { font-style: italic; background: linear-gradient(135deg, var(--green), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-sub { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 400; color: var(--muted); line-height: 1.75; max-width: 580px; margin-bottom: 48px; opacity: 0; animation: fadeUp .8s ease .6s forwards; }
 .hero-sub strong { color: var(--txt); font-weight: 600; }
-.hero-btns {
-  display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 72px;
-  opacity: 0; animation: fadeUp .8s ease .8s forwards;
-}
-.btn-primary {
-  font-family: var(--font-h); font-size: 14px; font-weight: 700;
-  color: var(--bg); background: var(--green);
-  padding: 13px 32px; border-radius: 8px; text-decoration: none;
-  box-shadow: 0 0 24px rgba(0,255,170,.3); transition: all .2s;
-}
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 72px; opacity: 0; animation: fadeUp .8s ease .8s forwards; }
+.btn-primary { font-family: var(--font-h); font-size: 14px; font-weight: 700; color: var(--bg); background: var(--green); padding: 13px 32px; border-radius: 8px; text-decoration: none; box-shadow: 0 0 24px rgba(0,255,170,.3); transition: all .2s; }
 .btn-primary:hover { background: #00e699; box-shadow: 0 0 44px rgba(0,255,170,.5); transform: translateY(-2px); }
-.btn-ghost {
-  font-family: var(--font-h); font-size: 14px; font-weight: 600;
-  color: var(--txt); background: transparent;
-  border: 1px solid var(--border2);
-  padding: 13px 32px; border-radius: 8px; text-decoration: none;
-  transition: all .2s;
-}
+.btn-ghost { font-family: var(--font-h); font-size: 14px; font-weight: 600; color: var(--txt); background: transparent; border: 1px solid var(--border2); padding: 13px 32px; border-radius: 8px; text-decoration: none; transition: all .2s; }
 .btn-ghost:hover { border-color: var(--green); color: var(--green); background: rgba(0,255,170,.04); }
-.hero-stats {
-  display: flex; gap: 56px;
-  opacity: 0; animation: fadeUp .8s ease 1s forwards;
-}
-.stat-n {
-  font-family: var(--font-h); font-size: 40px; font-weight: 800;
-  color: var(--green); letter-spacing: -2px; line-height: 1;
-}
-.stat-l {
-  font-size: 10px; color: var(--muted);
-  letter-spacing: 2px; text-transform: uppercase; margin-top: 5px;
-}
-
-/* ── SECTION BASE ── */
-.section {
-  position: relative; z-index: 1;
-  padding: 100px 48px;
-  max-width: 1200px; margin: 0 auto;
-}
-.sec-tag {
-  font-size: 10px; color: var(--green);
-  letter-spacing: 4px; text-transform: uppercase;
-  margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-}
+.hero-stats { display: flex; gap: 56px; opacity: 0; animation: fadeUp .8s ease 1s forwards; }
+.stat-n { font-family: var(--font-h); font-size: 40px; font-weight: 800; color: var(--green); letter-spacing: -2px; line-height: 1; }
+.stat-l { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
+.section { position: relative; z-index: 1; padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+.sec-tag { font-size: 10px; color: var(--green); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
 .sec-tag::before { content: '//'; color: var(--muted); }
-.sec-title {
-  font-family: var(--font-h);
-  font-size: clamp(30px, 4vw, 52px);
-  font-weight: 800; letter-spacing: -2px;
-  color: var(--txt); margin-bottom: 6px;
-}
-.sec-count {
-  font-size: 11px; color: var(--muted);
-  letter-spacing: 3px; text-transform: uppercase;
-  margin-bottom: 60px;
-}
-
-/* ── PROJECT CARDS ── */
+.sec-title { font-family: var(--font-h); font-size: clamp(30px, 4vw, 52px); font-weight: 800; letter-spacing: -2px; color: var(--txt); margin-bottom: 6px; }
+.sec-count { font-size: 11px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 60px; }
 .projects-list { display: flex; flex-direction: column; }
-.proj-card {
-  display: grid;
-  grid-template-columns: 64px 1fr auto;
-  gap: 0 32px;
-  padding: 32px 0;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: all .25s;
-  position: relative;
-}
+.proj-card { display: grid; grid-template-columns: 64px 1fr auto; gap: 0 32px; padding: 32px 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: all .25s; position: relative; }
 .proj-card:first-child { border-top: 1px solid var(--border); }
-.proj-card:hover {
-  background: rgba(0,255,170,.02);
-  padding-left: 16px; padding-right: 16px;
-  margin: 0 -16px; border-radius: 10px;
-  border-bottom-color: transparent;
-}
+.proj-card:hover { background: rgba(0,255,170,.02); padding-left: 16px; padding-right: 16px; margin: 0 -16px; border-radius: 10px; border-bottom-color: transparent; }
 .proj-card:hover .proj-num { color: var(--green); }
-.proj-card::before {
-  content: '';
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 2px; border-radius: 0 2px 2px 0;
-  background: var(--c, var(--green));
-  opacity: 0; transition: opacity .25s;
-}
+.proj-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; border-radius: 0 2px 2px 0; background: var(--c, var(--green)); opacity: 0; transition: opacity .25s; }
 .proj-card:hover::before { opacity: 1; }
-.proj-num {
-  font-size: 12px; color: var(--muted);
-  letter-spacing: 2px; padding-top: 6px;
-  transition: color .2s;
-}
+.proj-num { font-size: 12px; color: var(--muted); letter-spacing: 2px; padding-top: 6px; transition: color .2s; }
 .proj-body { display: flex; flex-direction: column; gap: 11px; }
 .proj-cats { display: flex; gap: 7px; flex-wrap: wrap; }
-.cat {
-  font-size: 10px; color: var(--muted);
-  border: 1px solid var(--border);
-  padding: 3px 9px; border-radius: 3px; letter-spacing: .5px;
-  transition: all .2s;
-}
+.cat { font-size: 10px; color: var(--muted); border: 1px solid var(--border); padding: 3px 9px; border-radius: 3px; letter-spacing: .5px; transition: all .2s; }
 .proj-card:hover .cat { border-color: var(--border2); }
-.proj-name {
-  font-family: var(--font-h);
-  font-size: 24px; font-weight: 800;
-  letter-spacing: -1px; line-height: 1.1;
-  transition: color .2s;
-}
-.proj-desc {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px; color: var(--muted);
-  line-height: 1.65; max-width: 600px; font-weight: 400;
-}
+.proj-name { font-family: var(--font-h); font-size: 24px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; transition: color .2s; }
+.proj-desc { font-family: 'Syne', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 600px; font-weight: 400; }
 .proj-feats { display: flex; gap: 20px; flex-wrap: wrap; }
-.feat {
-  font-size: 11px; color: var(--muted);
-  display: flex; align-items: center; gap: 5px; letter-spacing: .3px;
-}
-.proj-right {
-  display: flex; flex-direction: column;
-  align-items: flex-end; justify-content: space-between;
-  padding: 4px 0; min-width: 150px;
-}
-.status {
-  font-size: 10px; padding: 5px 13px;
-  border-radius: 4px; border: 1px solid; letter-spacing: 1.2px;
-  text-transform: uppercase; white-space: nowrap;
-}
+.feat { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 5px; letter-spacing: .3px; }
+.proj-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; padding: 4px 0; min-width: 150px; }
+.status { font-size: 10px; padding: 5px 13px; border-radius: 4px; border: 1px solid; letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap; }
 .s-mvp  { color: var(--green);  border-color: rgba(0,255,170,.35);  background: rgba(0,255,170,.07); }
 .s-build{ color: var(--cyan);   border-color: rgba(6,182,212,.35);   background: rgba(6,182,212,.07); }
 .s-dev  { color: var(--violet); border-color: rgba(124,58,237,.35);  background: rgba(124,58,237,.07);}
 .s-con  { color: var(--muted);  border-color: rgba(77,140,132,.3);   background: rgba(77,140,132,.05);}
-.view-link {
-  font-size: 11px; color: var(--muted);
-  display: flex; align-items: center; gap: 6px;
-  transition: color .2s; letter-spacing: .5px;
-}
+.view-link { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; transition: color .2s; letter-spacing: .5px; }
 .proj-card:hover .view-link { color: var(--green); }
 .view-link::after { content: '→'; transition: transform .2s; }
 .proj-card:hover .view-link::after { transform: translateX(4px); }
-
-/* ── ABOUT ── */
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
-}
-.about-txt p {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px; color: var(--muted); line-height: 1.8;
-  margin-bottom: 18px; font-weight: 400;
-}
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.about-txt p { font-family: 'Syne', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.8; margin-bottom: 18px; font-weight: 400; }
 .about-txt p strong { color: var(--txt); font-weight: 600; }
 .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.skill {
-  padding: 20px; border: 1px solid var(--border);
-  border-radius: 10px; background: var(--bg-card);
-  transition: all .2s;
-}
+.skill { padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); transition: all .2s; }
 .skill:hover { border-color: var(--border2); transform: translateY(-2px); }
 .skill-ico { font-size: 22px; margin-bottom: 10px; }
-.skill-name {
-  font-family: var(--font-h); font-size: 14px;
-  font-weight: 700; color: var(--txt); margin-bottom: 4px;
-}
+.skill-name { font-family: var(--font-h); font-size: 14px; font-weight: 700; color: var(--txt); margin-bottom: 4px; }
 .skill-desc { font-size: 11px; color: var(--muted); line-height: 1.55; }
-
-/* ── CONTACT ── */
 .contact-wrap { text-align: center; max-width: 560px; margin: 0 auto; }
-.contact-wrap h2 {
-  font-family: var(--font-h); font-size: clamp(28px,4vw,48px);
-  font-weight: 800; letter-spacing: -2px; margin-bottom: 16px; color: var(--txt);
-}
-.contact-wrap p {
-  font-family: 'Syne', sans-serif; font-size: 16px; color: var(--muted);
-  margin-bottom: 40px; line-height: 1.7;
-}
+.contact-wrap h2 { font-family: var(--font-h); font-size: clamp(28px,4vw,48px); font-weight: 800; letter-spacing: -2px; margin-bottom: 16px; color: var(--txt); }
+.contact-wrap p { font-family: 'Syne', sans-serif; font-size: 16px; color: var(--muted); margin-bottom: 40px; line-height: 1.7; }
 .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.contact-link {
-  font-size: 12px; color: var(--muted);
-  border: 1px solid var(--border);
-  padding: 12px 24px; border-radius: 8px; text-decoration: none;
-  letter-spacing: 1px; transition: all .2s; background: var(--bg-card);
-}
+.contact-link { font-size: 12px; color: var(--muted); border: 1px solid var(--border); padding: 12px 24px; border-radius: 8px; text-decoration: none; letter-spacing: 1px; transition: all .2s; background: var(--bg-card); }
 .contact-link:hover { border-color: var(--green); color: var(--green); background: rgba(0,255,170,.04); box-shadow: 0 0 20px rgba(0,255,170,.1); }
-
-/* ── FOOTER ── */
-footer {
-  position: relative; z-index: 1;
-  border-top: 1px solid var(--border);
-  padding: 28px 48px;
-  display: flex; align-items: center; justify-content: space-between;
-  max-width: 1200px; margin: 0 auto;
-}
+footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
 .foot-copy { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
-.foot-ticker {
-  font-size: 11px; color: rgba(0,255,170,.2);
-  letter-spacing: 2.5px; overflow: hidden; width: 200px;
-}
+.foot-ticker { font-size: 11px; color: rgba(0,255,170,.2); letter-spacing: 2.5px; overflow: hidden; width: 200px; }
 .ticker-inner { white-space: nowrap; animation: marquee 10s linear infinite; }
 @keyframes marquee { from{transform:translateX(100%)} to{transform:translateX(-100%)} }
-
-/* ── MODAL ── */
-.overlay {
-  display: none; position: fixed; inset: 0; z-index: 500;
-  background: rgba(4,13,15,.92); backdrop-filter: blur(20px);
-  overflow-y: auto; padding: 40px 20px;
-  align-items: flex-start; justify-content: center;
-}
+.overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(4,13,15,.92); backdrop-filter: blur(20px); overflow-y: auto; padding: 40px 20px; align-items: flex-start; justify-content: center; }
 .overlay.open { display: flex; }
-.modal {
-  background: var(--bg-card);
-  border: 1px solid var(--border2);
-  border-radius: 14px;
-  width: 100%; max-width: 1080px;
-  overflow: hidden;
-  animation: mIn .32s cubic-bezier(.16,1,.3,1);
-  box-shadow: 0 40px 120px rgba(0,0,0,.9), 0 0 0 1px rgba(0,255,170,.06), 0 0 60px rgba(0,255,170,.04);
-}
+.modal { background: var(--bg-card); border: 1px solid var(--border2); border-radius: 14px; width: 100%; max-width: 1080px; overflow: hidden; animation: mIn .32s cubic-bezier(.16,1,.3,1); box-shadow: 0 40px 120px rgba(0,0,0,.9), 0 0 0 1px rgba(0,255,170,.06), 0 0 60px rgba(0,255,170,.04); }
 @keyframes mIn { from{opacity:0;transform:scale(.95) translateY(24px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.modal-hdr {
-  padding: 18px 28px;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(4,13,15,.6);
-}
+.modal-hdr { padding: 18px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: rgba(4,13,15,.6); }
 .modal-hdr-l { display: flex; align-items: center; gap: 14px; }
 .modal-hdr-num { font-size: 11px; color: var(--muted); letter-spacing: 2px; }
-.modal-close {
-  width: 34px; height: 34px; border-radius: 8px;
-  border: 1px solid var(--border); background: transparent;
-  color: var(--muted); cursor: pointer; font-size: 16px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .2s; font-family: var(--font-m);
-}
+.modal-close { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all .2s; font-family: var(--font-m); }
 .modal-close:hover { border-color: var(--green); color: var(--green); background: rgba(0,255,170,.05); }
 .modal-body { display: grid; grid-template-columns: 1.1fr 1fr; }
-.mock-side {
-  background: #030a0b; padding: 32px;
-  display: flex; align-items: center; justify-content: center;
-  border-right: 1px solid var(--border); min-height: 460px;
-}
-.mock-win {
-  width: 100%; border-radius: 10px; overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.06);
-}
-.chrome {
-  background: #111618; padding: 9px 12px;
-  display: flex; align-items: center; gap: 5px;
-  border-bottom: 1px solid rgba(0,255,170,.06);
-}
+.mock-side { background: #030a0b; padding: 32px; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); min-height: 460px; }
+.mock-win { width: 100%; border-radius: 10px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.06); }
+.chrome { background: #111618; padding: 9px 12px; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid rgba(0,255,170,.06); }
 .cd { width: 11px; height: 11px; border-radius: 50%; }
 .cd.r{background:#ff5f57} .cd.y{background:#febc2e} .cd.g{background:#28c840}
 .chrome-label { font-size: 10px; color: #2a4a46; margin-left: 8px; letter-spacing: .3px; }
 .info-side { padding: 32px; overflow-y: auto; max-height: 600px; }
-.modal-name {
-  font-family: var(--font-h); font-size: 26px; font-weight: 800;
-  letter-spacing: -1.5px; margin-bottom: 4px; line-height: 1.1;
-}
-.modal-sub {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px; color: var(--muted); margin-bottom: 18px;
-}
-.modal-desc {
-  font-family: 'Syne', sans-serif;
-  font-size: 13.5px; color: var(--muted);
-  line-height: 1.8; margin-bottom: 22px; font-weight: 400;
-}
-.sec-lbl {
-  font-size: 10px; color: var(--muted); letter-spacing: 3px;
-  text-transform: uppercase; margin-bottom: 10px;
-  display: flex; align-items: center; gap: 8px;
-}
+.modal-name { font-family: var(--font-h); font-size: 26px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 4px; line-height: 1.1; }
+.modal-sub { font-family: 'Syne', sans-serif; font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+.modal-desc { font-family: 'Syne', sans-serif; font-size: 13.5px; color: var(--muted); line-height: 1.8; margin-bottom: 22px; font-weight: 400; }
+.sec-lbl { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
 .sec-lbl::before { content: '//'; color: rgba(77,140,132,.5); }
 .feats-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 22px; }
-.feat-row {
-  font-family: 'Syne', sans-serif;
-  font-size: 12.5px; color: var(--muted); line-height: 1.55;
-  display: flex; gap: 8px; align-items: flex-start;
-}
+.feat-row { font-family: 'Syne', sans-serif; font-size: 12.5px; color: var(--muted); line-height: 1.55; display: flex; gap: 8px; align-items: flex-start; }
 .stack-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
-.chip {
-  font-size: 10px; color: var(--muted);
-  border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px;
-  letter-spacing: .5px; background: rgba(0,255,170,.02);
-  transition: all .2s;
-}
+.chip { font-size: 10px; color: var(--muted); border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; letter-spacing: .5px; background: rgba(0,255,170,.02); transition: all .2s; }
 .chip:hover { border-color: var(--border2); color: var(--green); }
-.metrics {
-  background: rgba(4,13,15,.7); border: 1px solid var(--border);
-  border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px;
-}
-.metric {
-  font-family: 'Syne', sans-serif;
-  font-size: 12.5px; color: var(--muted); line-height: 1.5;
-}
-
-/* ── ANIMATIONS ── */
+.metrics { background: rgba(4,13,15,.7); border: 1px solid var(--border); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.metric { font-family: 'Syne', sans-serif; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 .wave { display: inline-block; width: 3px; border-radius: 2px; margin: 0 1px; animation: wv .7s ease-in-out infinite; }
 @keyframes wv { 0%,100%{transform:scaleY(.3)} 50%{transform:scaleY(1)} }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
@@ -447,38 +148,16 @@ footer {
 @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 .cur { animation: blink .9s infinite; }
 .pls { animation: pulse 2s infinite; }
-
-/* ── SCROLL REVEAL ── */
 .reveal { opacity:0; transform:translateY(32px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
-
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  nav { padding: 14px 24px; }
-  .nav-links { display: none; }
-  .hero,.section { padding-left: 24px; padding-right: 24px; }
-  .modal-body { grid-template-columns: 1fr; }
-  .mock-side { border-right:none; border-bottom:1px solid var(--border); min-height:280px; padding:20px; }
-  .info-side { max-height:none; }
-  .about-grid { grid-template-columns:1fr; gap:40px; }
-  footer { padding: 24px; flex-direction: column; gap: 12px; }
-}
-@media(max-width:640px){
-  .proj-card { grid-template-columns: 44px 1fr; }
-  .proj-right { display: none; }
-  .hero-stats { gap: 32px; }
-  .stat-n { font-size: 32px; }
-  .skills { grid-template-columns: 1fr; }
-}
+@media(max-width:960px){ nav{padding:14px 24px} .nav-links{display:none} .hero,.section{padding-left:24px;padding-right:24px} .modal-body{grid-template-columns:1fr} .mock-side{border-right:none;border-bottom:1px solid var(--border);min-height:280px;padding:20px} .info-side{max-height:none} .about-grid{grid-template-columns:1fr;gap:40px} footer{padding:24px;flex-direction:column;gap:12px} }
+@media(max-width:640px){ .proj-card{grid-template-columns:44px 1fr} .proj-right{display:none} .hero-stats{gap:32px} .stat-n{font-size:32px} .skills{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
-
 <div class="bg-orb orb1"></div>
 <div class="bg-orb orb2"></div>
 <div class="bg-orb orb3"></div>
-
-<!-- NAV -->
 <nav>
   <div>
     <div class="nav-logo">CMB<span>.</span>facts</div>
@@ -486,214 +165,151 @@ footer {
   </div>
   <div class="nav-links">
     <a href="#proyectos">Proyectos</a>
-    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#sobre-mi">Sobre m&#237;</a>
     <a href="#contacto">Contacto</a>
   </div>
-  <a href="#contacto" class="nav-cta">Conectar →</a>
+  <a href="#contacto" class="nav-cta">Conectar &#8594;</a>
 </nav>
-
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-pre">// AI.DEV · Developer · IA · Human Experience</div>
+  <div class="hero-pre">// AI.DEV &#183; Developer &#183; IA &#183; Human Experience</div>
   <h1 class="hero-title">Construyo apps que<br><em>piensan contigo.</em></h1>
-  <p class="hero-sub">Desarrollo aplicaciones donde la <strong>inteligencia artificial</strong> no reemplaza al humano — la amplifica. Proyectos en salud mental, bienestar emocional y entornos de ventas.</p>
+  <p class="hero-sub">Desarrollo aplicaciones donde la <strong>inteligencia artificial</strong> no reemplaza al humano &#8212; la amplifica. Proyectos en salud mental, bienestar emocional y entornos de ventas.</p>
   <div class="hero-btns">
     <a href="#proyectos" class="btn-primary">Ver proyectos</a>
-    <a href="#sobre-mi" class="btn-ghost">Sobre mí</a>
+    <a href="#sobre-mi" class="btn-ghost">Sobre m&#237;</a>
   </div>
   <div class="hero-stats">
-    <div><div class="stat-n">7</div><div class="stat-l">Apps en desarrollo</div></div>
+    <div><div class="stat-n">8</div><div class="stat-l">Apps en desarrollo</div></div>
     <div><div class="stat-n">AI</div><div class="stat-l">Core technology</div></div>
-    <div><div class="stat-n">∞</div><div class="stat-l">Impacto potencial</div></div>
+    <div><div class="stat-n">&#8734;</div><div class="stat-l">Impacto potencial</div></div>
   </div>
 </div>
-
-<!-- PROJECTS -->
 <section class="section" id="proyectos">
-  <div class="sec-tag reveal">001 — Proyectos</div>
+  <div class="sec-tag reveal">001 &#8212; Proyectos</div>
   <h2 class="sec-title reveal">Apps en desarrollo</h2>
-  <div class="sec-count reveal">07 proyectos activos</div>
-
+  <div class="sec-count reveal">08 proyectos activos</div>
   <div class="projects-list">
-
     <div class="proj-card reveal" style="--c:#00ffaa" onclick="openModal(0)">
       <div class="proj-num">01</div>
       <div class="proj-body">
-        <div class="proj-cats">
-          <span class="cat">HealthTech</span><span class="cat">Psicología Clínica</span><span class="cat">IA Generativa</span><span class="cat">Tiempo Real</span>
-        </div>
+        <div class="proj-cats"><span class="cat">HealthTech</span><span class="cat">Psicolog&#237;a Cl&#237;nica</span><span class="cat">IA Generativa</span><span class="cat">Tiempo Real</span></div>
         <div class="proj-name" style="color:#00ffaa">CMBps PBT Integral</div>
-        <div class="proj-desc">Sistema SaaS clínico para psicólogos con Co-Piloto IA que transcribe sesiones vía WebSocket, construye mapas funcionales D3.js en directo y recomienda intervenciones ACT/DBT/CFT al instante.</div>
-        <div class="proj-feats">
-          <span class="feat">🎙️ Co-Piloto WebSocket</span>
-          <span class="feat">🗺️ Mapa funcional D3.js</span>
-          <span class="feat">🧠 GPT-4o en tiempo real</span>
-          <span class="feat">📝 Notas SOAP automáticas</span>
-        </div>
+        <div class="proj-desc">Sistema SaaS cl&#237;nico para psic&#243;logos con Co-Piloto IA que transcribe sesiones v&#237;a WebSocket, construye mapas funcionales D3.js en directo y recomienda intervenciones ACT/DBT/CFT al instante.</div>
+        <div class="proj-feats"><span class="feat">&#127905;&#65039; Co-Piloto WebSocket</span><span class="feat">&#128506;&#65039; Mapa funcional D3.js</span><span class="feat">&#129504; GPT-4o en tiempo real</span><span class="feat">&#128221; Notas SOAP autom&#225;ticas</span></div>
       </div>
-      <div class="proj-right">
-        <span class="status s-mvp">MVP · Beta Cerrada</span>
-        <span class="view-link">Ver proyecto</span>
-      </div>
+      <div class="proj-right"><span class="status s-mvp">MVP &#183; Beta Cerrada</span><span class="view-link">Ver proyecto</span></div>
     </div>
-
     <div class="proj-card reveal" style="--c:#7c3aed" onclick="openModal(1)">
       <div class="proj-num">02</div>
       <div class="proj-body">
-        <div class="proj-cats">
-          <span class="cat">Salud Mental</span><span class="cat">Transcripción IA</span><span class="cat">Reportes Clínicos</span>
-        </div>
+        <div class="proj-cats"><span class="cat">Salud Mental</span><span class="cat">Transcripci&#243;n IA</span><span class="cat">Reportes Cl&#237;nicos</span></div>
         <div class="proj-name" style="color:#7c3aed">PsycoAssist AI</div>
-        <div class="proj-desc">Copiloto inteligente que graba y transcribe sesiones con Whisper AI, sugiere diagnósticos DSM-5/ICD-11 en tiempo real y genera reportes clínicos, forenses y educacionales con un solo clic.</div>
-        <div class="proj-feats">
-          <span class="feat">🎙 Whisper AI</span><span class="feat">🔍 DSM-5 / ICD-11</span><span class="feat">📄 Reportes automáticos</span>
-        </div>
+        <div class="proj-desc">Copiloto inteligente que graba y transcribe sesiones con Whisper AI, sugiere diagn&#243;sticos DSM-5/ICD-11 en tiempo real y genera reportes cl&#237;nicos, forenses y educacionales con un solo clic.</div>
+        <div class="proj-feats"><span class="feat">&#127917; Whisper AI</span><span class="feat">&#128269; DSM-5 / ICD-11</span><span class="feat">&#128196; Reportes autom&#225;ticos</span></div>
       </div>
-      <div class="proj-right">
-        <span class="status s-build">Building</span>
-        <span class="view-link">Ver proyecto</span>
-      </div>
+      <div class="proj-right"><span class="status s-build">Building</span><span class="view-link">Ver proyecto</span></div>
     </div>
-
     <div class="proj-card reveal" style="--c:#06b6d4" onclick="openModal(2)">
       <div class="proj-num">03</div>
       <div class="proj-body">
-        <div class="proj-cats">
-          <span class="cat">Bienestar</span><span class="cat">Regulación Emocional</span><span class="cat">Terapia Digital</span>
-        </div>
+        <div class="proj-cats"><span class="cat">Bienestar</span><span class="cat">Regulaci&#243;n Emocional</span><span class="cat">Terapia Digital</span></div>
         <div class="proj-name" style="color:#06b6d4">EmotiFlow</div>
-        <div class="proj-desc">App móvil para medir, comprender y regular emociones. TCC, Mindfulness y ACT potenciados por IA con tracking continuo e intervenciones adaptativas en tiempo real.</div>
-        <div class="proj-feats">
-          <span class="feat">📊 Emotion tracking</span><span class="feat">🧘 Protocolos IA</span><span class="feat">📈 Dashboard progreso</span>
-        </div>
+        <div class="proj-desc">App m&#243;vil para medir, comprender y regular emociones. TCC, Mindfulness y ACT potenciados por IA con tracking continuo e intervenciones adaptativas en tiempo real.</div>
+        <div class="proj-feats"><span class="feat">&#128202; Emotion tracking</span><span class="feat">&#129720; Protocolos IA</span><span class="feat">&#128200; Dashboard progreso</span></div>
       </div>
-      <div class="proj-right">
-        <span class="status s-build">Building</span>
-        <span class="view-link">Ver proyecto</span>
-      </div>
+      <div class="proj-right"><span class="status s-build">Building</span><span class="view-link">Ver proyecto</span></div>
     </div>
-
     <div class="proj-card reveal" style="--c:#f59e0b" onclick="openModal(3)">
       <div class="proj-num">04</div>
       <div class="proj-body">
-        <div class="proj-cats">
-          <span class="cat">Psicología</span><span class="cat">Evaluación Personalidad</span><span class="cat">Standalone</span>
-        </div>
+        <div class="proj-cats"><span class="cat">Psicolog&#237;a</span><span class="cat">Evaluaci&#243;n Personalidad</span><span class="cat">Standalone</span></div>
         <div class="proj-name" style="color:#f59e0b">Biotipos Temperamentales</div>
-        <div class="proj-desc">Herramienta standalone de evaluación temperamental con gráfico radar Canvas, perfil principal y secundario, compatibilidad relacional y plan de mejora — en un único archivo HTML sin backend.</div>
-        <div class="proj-feats">
-          <span class="feat">🕸️ Radar Canvas API</span><span class="feat">🤝 Compatibilidad</span><span class="feat">📁 Zero dependencias</span>
-        </div>
+        <div class="proj-desc">Herramienta standalone de evaluaci&#243;n temperamental con gr&#225;fico radar Canvas, perfil principal y secundario, compatibilidad relacional y plan de mejora &#8212; en un &#250;nico archivo HTML sin backend.</div>
+        <div class="proj-feats"><span class="feat">&#128375;&#65039; Radar Canvas API</span><span class="feat">&#129309; Compatibilidad</span><span class="feat">&#128193; Zero dependencias</span></div>
       </div>
-      <div class="proj-right">
-        <span class="status s-dev">In Development</span>
-        <span class="view-link">Ver proyecto</span>
-      </div>
+      <div class="proj-right"><span class="status s-dev">In Development</span><span class="view-link">Ver proyecto</span></div>
     </div>
-
     <div class="proj-card reveal" style="--c:#ec4899" onclick="openModal(4)">
       <div class="proj-num">05</div>
       <div class="proj-body">
-        <div class="proj-cats">
-          <span class="cat">Marketing IA</span><span class="cat">Automatización</span><span class="cat">Viralidad</span>
-        </div>
+        <div class="proj-cats"><span class="cat">Marketing IA</span><span class="cat">Automatizaci&#243;n</span><span class="cat">Viralidad</span></div>
         <div class="proj-name" style="color:#ec4899">CMBviral</div>
-        <div class="proj-desc">Plataforma local-first con 12+ agentes IA especializados. Detecta tendencias, las puntúa por virabilidad, genera scripts JSON para videos cortos y produce ebooks semanales completos en &lt;30 min.</div>
-        <div class="proj-feats">
-          <span class="feat">🤖 12+ agentes IA</span><span class="feat">📊 Scoring viral</span><span class="feat">🔄 Multi-LLM fallback</span>
-        </div>
+        <div class="proj-desc">Plataforma local-first con 12+ agentes IA especializados. Detecta tendencias, las punt&#250;a por virabilidad, genera scripts JSON para videos cortos y produce ebooks semanales completos en &lt;30 min.</div>
+        <div class="proj-feats"><span class="feat">&#129302; 12+ agentes IA</span><span class="feat">&#128202; Scoring viral</span><span class="feat">&#128260; Multi-LLM fallback</span></div>
       </div>
-      <div class="proj-right">
-        <span class="status s-dev">In Development</span>
-        <span class="view-link">Ver proyecto</span>
-      </div>
+      <div class="proj-right"><span class="status s-dev">In Development</span><span class="view-link">Ver proyecto</span></div>
     </div>
-
     <div class="proj-card reveal" style="--c:#34d399" onclick="openModal(5)">
       <div class="proj-num">06</div>
       <div class="proj-body">
-        <div class="proj-cats">
-          <span class="cat">Salud Mental Digital</span><span class="cat">TCC con IA</span><span class="cat">Pacientes</span>
-        </div>
+        <div class="proj-cats"><span class="cat">Salud Mental Digital</span><span class="cat">TCC con IA</span><span class="cat">Pacientes</span></div>
         <div class="proj-name" style="color:#34d399">PsicoTech</div>
-        <div class="proj-desc">Plataforma de acompañamiento psicológico entre sesiones con rutas terapéuticas personalizadas, retos diarios adaptativos y chat IA empático para ansiedad, estrés, duelo y autoestima.</div>
-        <div class="proj-feats">
-          <span class="feat">🎯 7 protocolos TCC</span><span class="feat">💬 Chat IA empático</span><span class="feat">🔥 Racha diaria</span>
-        </div>
+        <div class="proj-desc">Plataforma de acompa&#241;amiento psicol&#243;gico entre sesiones con rutas terap&#233;uticas personalizadas, retos diarios adaptativos y chat IA emp&#225;tico para ansiedad, estr&#233;s, duelo y autoestima.</div>
+        <div class="proj-feats"><span class="feat">&#127919; 7 protocolos TCC</span><span class="feat">&#128172; Chat IA emp&#225;tico</span><span class="feat">&#128293; Racha diaria</span></div>
       </div>
-      <div class="proj-right">
-        <span class="status s-dev">In Development</span>
-        <span class="view-link">Ver proyecto</span>
-      </div>
+      <div class="proj-right"><span class="status s-dev">In Development</span><span class="view-link">Ver proyecto</span></div>
     </div>
-
     <div class="proj-card reveal" style="--c:#f97c3a" onclick="openModal(6)">
       <div class="proj-num">07</div>
       <div class="proj-body">
-        <div class="proj-cats">
-          <span class="cat">Ventas</span><span class="cat">Persuasión IA</span><span class="cat">Performance</span>
-        </div>
+        <div class="proj-cats"><span class="cat">Ventas</span><span class="cat">Persuasi&#243;n IA</span><span class="cat">Performance</span></div>
         <div class="proj-name" style="color:#f97c3a">SalesFlow AI</div>
-        <div class="proj-desc">Coaching IA para equipos de ventas que combina gestión del estrés laboral, scripts de persuasión adaptativos y análisis conductual para maximizar performance sin sacrificar bienestar.</div>
-        <div class="proj-feats">
-          <span class="feat">🎯 Coach IA en llamada</span><span class="feat">💡 Scripts adaptativos</span><span class="feat">🏆 Gamificación</span>
-        </div>
+        <div class="proj-desc">Coaching IA para equipos de ventas que combina gesti&#243;n del estr&#233;s laboral, scripts de persuasi&#243;n adaptativos y an&#225;lisis conductual para maximizar performance sin sacrificar bienestar.</div>
+        <div class="proj-feats"><span class="feat">&#127919; Coach IA en llamada</span><span class="feat">&#128161; Scripts adaptativos</span><span class="feat">&#127942; Gamificaci&#243;n</span></div>
       </div>
-      <div class="proj-right">
-        <span class="status s-con">Concept</span>
-        <span class="view-link">Ver proyecto</span>
-      </div>
+      <div class="proj-right"><span class="status s-con">Concept</span><span class="view-link">Ver proyecto</span></div>
     </div>
-
+    <div class="proj-card reveal" style="--c:#a78bfa" onclick="openModal(7)">
+      <div class="proj-num">08</div>
+      <div class="proj-body">
+        <div class="proj-cats"><span class="cat">Psicometr&#237;a</span><span class="cat">Educaci&#243;n</span><span class="cat">IA</span><span class="cat">Reportes</span></div>
+        <div class="proj-name" style="color:#a78bfa">CMBtest</div>
+        <div class="proj-desc">Suite local-first de evaluaci&#243;n psicom&#233;trica educativa con 20+ instrumentos, reportes individuales por test, integraci&#243;n comparativa final asistida por IA y exportaci&#243;n en Word/PDF &#8212; todo en una sola plataforma web sin backend.</div>
+        <div class="proj-feats"><span class="feat">&#129514; 20+ instrumentos</span><span class="feat">&#129302; IA v&#237;a OpenRouter</span><span class="feat">&#128202; Reportes Word/PDF</span><span class="feat">&#128274; Local-first</span></div>
+      </div>
+      <div class="proj-right"><span class="status s-dev">In Development</span><span class="view-link">Ver proyecto</span></div>
+    </div>
   </div>
 </section>
-
-<!-- ABOUT -->
 <section class="section" id="sobre-mi" style="border-top: 1px solid var(--border);">
-  <div class="sec-tag reveal">002 — Sobre mí</div>
-  <h2 class="sec-title reveal">Tecnología con <em style="font-style:italic;color:#00ffaa">propósito</em> humano.</h2>
+  <div class="sec-tag reveal">002 &#8212; Sobre m&#237;</div>
+  <h2 class="sec-title reveal">Tecnolog&#237;a con <em style="font-style:italic;color:#00ffaa">prop&#243;sito</em> humano.</h2>
   <div class="sec-count reveal" style="margin-bottom:48px">Santiago, Chile</div>
   <div class="about-grid">
     <div class="about-txt reveal">
       <p>Desarrollo aplicaciones donde la IA no es el fin, sino el medio. Me especializo en construir herramientas que resuelven problemas <strong>reales</strong> en salud, bienestar y productividad.</p>
-      <p>Cada proyecto nace de una necesidad concreta — mejorar la vida de psicólogos, ayudar a personas a entenderse emocionalmente, o potenciar equipos de ventas sin sacrificar el bienestar.</p>
+      <p>Cada proyecto nace de una necesidad concreta &#8212; mejorar la vida de psic&#243;logos, ayudar a personas a entenderse emocionalmente, o potenciar equipos de ventas sin sacrificar el bienestar.</p>
     </div>
     <div class="skills">
-      <div class="skill reveal"><div class="skill-ico">🧠</div><div class="skill-name">IA Generativa</div><div class="skill-desc">LLMs, RAG, agentes multi-LLM e interfaces conversacionales</div></div>
-      <div class="skill reveal"><div class="skill-ico">📱</div><div class="skill-name">App Development</div><div class="skill-desc">Apps web y móviles con foco en UX y experiencias fluidas</div></div>
-      <div class="skill reveal"><div class="skill-ico">🎙️</div><div class="skill-name">Audio & NLP</div><div class="skill-desc">Transcripción, análisis de sentimientos y procesamiento de voz</div></div>
-      <div class="skill reveal"><div class="skill-ico">⚡</div><div class="skill-name">Producto & UX</div><div class="skill-desc">De la idea al producto — diseño centrado en el usuario real</div></div>
+      <div class="skill reveal"><div class="skill-ico">&#129504;</div><div class="skill-name">IA Generativa</div><div class="skill-desc">LLMs, RAG, agentes multi-LLM e interfaces conversacionales</div></div>
+      <div class="skill reveal"><div class="skill-ico">&#128242;</div><div class="skill-name">App Development</div><div class="skill-desc">Apps web y m&#243;viles con foco en UX y experiencias fluidas</div></div>
+      <div class="skill reveal"><div class="skill-ico">&#127897;&#65039;</div><div class="skill-name">Audio &amp; NLP</div><div class="skill-desc">Transcripci&#243;n, an&#225;lisis de sentimientos y procesamiento de voz</div></div>
+      <div class="skill reveal"><div class="skill-ico">&#9889;</div><div class="skill-name">Producto &amp; UX</div><div class="skill-desc">De la idea al producto &#8212; dise&#241;o centrado en el usuario real</div></div>
     </div>
   </div>
 </section>
-
-<!-- CONTACT -->
 <section class="section" id="contacto" style="border-top: 1px solid var(--border);">
   <div class="contact-wrap">
-    <div class="sec-tag reveal" style="justify-content:center;margin-bottom:18px">003 — Contacto</div>
-    <h2 class="reveal">¿Tienes una idea?</h2>
-    <p class="reveal">Hablemos de cómo la IA puede transformarla en realidad.</p>
+    <div class="sec-tag reveal" style="justify-content:center;margin-bottom:18px">003 &#8212; Contacto</div>
+    <h2 class="reveal">&#191;Tienes una idea?</h2>
+    <p class="reveal">Hablemos de c&#243;mo la IA puede transformarla en realidad.</p>
     <div class="contact-links reveal">
-      <a href="mailto:tu@email.com" class="contact-link">✉ Email</a>
+      <a href="mailto:tu@email.com" class="contact-link">&#9993; Email</a>
       <a href="#" class="contact-link">in LinkedIn</a>
-      <a href="#" class="contact-link">⌥ GitHub</a>
-      <a href="#" class="contact-link">𝕏 Twitter</a>
+      <a href="#" class="contact-link">&#8997; GitHub</a>
+      <a href="#" class="contact-link">&#120143; Twitter</a>
     </div>
   </div>
 </section>
-
 <footer>
-  <div class="foot-copy">© 2025 — CMB Facts · AI Developer Portfolio</div>
-  <div class="foot-ticker"><div class="ticker-inner">AI · HEALTH · EMOTION · SALES · FUTURE · HUMAN · &nbsp;</div></div>
+  <div class="foot-copy">&#169; 2025 &#8212; CMB Facts &#183; AI Developer Portfolio</div>
+  <div class="foot-ticker"><div class="ticker-inner">AI &#183; HEALTH &#183; EMOTION &#183; SALES &#183; FUTURE &#183; HUMAN &#183; &nbsp;</div></div>
   <div class="foot-copy">Santiago, Chile</div>
 </footer>
-
-<!-- ══ MODAL ══ -->
 <div class="overlay" id="overlay" onclick="handleOverlay(event)">
   <div class="modal" id="mbox"></div>
 </div>
-
-<!-- ══ MOCKUP TEMPLATES ══ -->
+<!-- MOCKUP TEMPLATES — exact same as real site, using #040d0f palette -->
 <template id="m0">
 <div class="mock-win">
   <div class="chrome"><div class="cd r"></div><div class="cd y"></div><div class="cd g"></div><span class="chrome-label">CMBps PBT Integral — Sesión activa</span></div>
@@ -772,7 +388,6 @@ footer {
   </div>
 </div>
 </template>
-
 <template id="m1">
 <div class="mock-win">
   <div class="chrome"><div class="cd r"></div><div class="cd y"></div><div class="cd g"></div><span class="chrome-label">PsycoAssist AI — Grabación activa</span></div>
@@ -780,22 +395,12 @@ footer {
     <div style="flex:1;display:flex;flex-direction:column;padding:14px;border-right:1px solid rgba(124,58,237,.12)">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
         <div style="display:flex;align-items:flex-end;gap:2px;height:26px">
-          <div class="wave" style="height:12px;background:#7c3aed;animation-delay:.0s"></div>
-          <div class="wave" style="height:20px;background:#7c3aed;animation-delay:.07s"></div>
-          <div class="wave" style="height:16px;background:#7c3aed;animation-delay:.14s"></div>
-          <div class="wave" style="height:24px;background:#7c3aed;animation-delay:.21s"></div>
-          <div class="wave" style="height:10px;background:#7c3aed;animation-delay:.28s"></div>
-          <div class="wave" style="height:18px;background:#7c3aed;animation-delay:.35s"></div>
-          <div class="wave" style="height:22px;background:#7c3aed;animation-delay:.42s"></div>
-          <div class="wave" style="height:14px;background:#7c3aed;animation-delay:.49s"></div>
+          <div class="wave" style="height:12px;background:#7c3aed;animation-delay:.0s"></div><div class="wave" style="height:20px;background:#7c3aed;animation-delay:.07s"></div><div class="wave" style="height:16px;background:#7c3aed;animation-delay:.14s"></div><div class="wave" style="height:24px;background:#7c3aed;animation-delay:.21s"></div><div class="wave" style="height:10px;background:#7c3aed;animation-delay:.28s"></div><div class="wave" style="height:18px;background:#7c3aed;animation-delay:.35s"></div><div class="wave" style="height:22px;background:#7c3aed;animation-delay:.42s"></div><div class="wave" style="height:14px;background:#7c3aed;animation-delay:.49s"></div>
         </div>
         <span style="font-size:9px;color:#7c3aed;font-family:'JetBrains Mono'">● GRABANDO · 08:42</span>
       </div>
       <div style="font-size:9px;color:rgba(124,58,237,.5);letter-spacing:1.5px;margin-bottom:8px">TRANSCRIPCIÓN — Whisper AI</div>
-      <div style="font-size:11px;color:#e0f2f1;line-height:1.75;flex:1;font-family:'Syne',sans-serif">
-        <span style="color:#7c3aed">Terapeuta:</span> ¿Cuándo fue la última vez que se sintió bien consigo mismo?<br><br>
-        <span style="color:#2a4a46">Paciente:</span> Hace mucho... ahora siento que no sirvo para nada, que todo lo hago mal...<span class="cur" style="color:#7c3aed">|</span>
-      </div>
+      <div style="font-size:11px;color:#e0f2f1;line-height:1.75;flex:1;font-family:'Syne',sans-serif"><span style="color:#7c3aed">Terapeuta:</span> ¿Cuándo fue la última vez que se sintió bien consigo mismo?<br><br><span style="color:#2a4a46">Paciente:</span> Hace mucho... ahora siento que no sirvo para nada, que todo lo hago mal...<span class="cur" style="color:#7c3aed">|</span></div>
       <div style="border-top:1px solid rgba(124,58,237,.1);padding-top:9px;margin-top:8px">
         <div style="font-size:9px;color:#f59e0b;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);padding:5px 9px;border-radius:4px">⚠ Pensamiento dicotómico — evaluar intensidad</div>
       </div>
@@ -803,289 +408,118 @@ footer {
     <div style="width:170px;background:#05000a;padding:12px 10px;overflow:hidden">
       <div style="font-size:9px;color:rgba(124,58,237,.5);letter-spacing:1.5px;margin-bottom:9px">SUGERENCIAS DSM-5</div>
       <div style="display:flex;flex-direction:column;gap:7px">
-        <div style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.22);border-radius:6px;padding:8px">
-          <div style="font-size:9px;color:#7c3aed;font-family:'JetBrains Mono'">F32.1</div>
-          <div style="font-size:10px;color:#e0f2f1;margin:2px 0;font-family:'Syne',sans-serif">Ep. depresivo moderado</div>
-          <div style="background:rgba(124,58,237,.15);border-radius:3px;overflow:hidden;height:4px;margin-top:5px"><div style="width:84%;height:100%;background:#7c3aed"></div></div>
-          <div style="font-size:9px;color:#7c3aed;text-align:right;margin-top:2px;font-family:'JetBrains Mono'">84%</div>
-        </div>
-        <div style="background:rgba(0,255,170,.05);border:1px solid rgba(0,255,170,.12);border-radius:6px;padding:8px">
-          <div style="font-size:9px;color:#00ffaa;font-family:'JetBrains Mono'">F41.1</div>
-          <div style="font-size:10px;color:#e0f2f1;margin:2px 0;font-family:'Syne',sans-serif">Ansiedad Generalizada</div>
-          <div style="background:rgba(0,255,170,.12);border-radius:3px;overflow:hidden;height:4px;margin-top:5px"><div style="width:61%;height:100%;background:#00ffaa"></div></div>
-          <div style="font-size:9px;color:#00ffaa;text-align:right;margin-top:2px;font-family:'JetBrains Mono'">61%</div>
-        </div>
-        <div style="background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.1);border-radius:6px;padding:8px">
-          <div style="font-size:9px;color:#06b6d4;font-family:'JetBrains Mono'">F60.7</div>
-          <div style="font-size:10px;color:#e0f2f1;margin:2px 0;font-family:'Syne',sans-serif">T. dependiente</div>
-          <div style="background:rgba(6,182,212,.1);border-radius:3px;overflow:hidden;height:4px;margin-top:5px"><div style="width:38%;height:100%;background:#06b6d4"></div></div>
-          <div style="font-size:9px;color:#06b6d4;text-align:right;margin-top:2px;font-family:'JetBrains Mono'">38%</div>
-        </div>
+        <div style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.22);border-radius:6px;padding:8px"><div style="font-size:9px;color:#7c3aed;font-family:'JetBrains Mono'">F32.1</div><div style="font-size:10px;color:#e0f2f1;margin:2px 0;font-family:'Syne',sans-serif">Ep. depresivo moderado</div><div style="background:rgba(124,58,237,.15);border-radius:3px;overflow:hidden;height:4px;margin-top:5px"><div style="width:84%;height:100%;background:#7c3aed"></div></div><div style="font-size:9px;color:#7c3aed;text-align:right;margin-top:2px;font-family:'JetBrains Mono'">84%</div></div>
+        <div style="background:rgba(0,255,170,.05);border:1px solid rgba(0,255,170,.12);border-radius:6px;padding:8px"><div style="font-size:9px;color:#00ffaa;font-family:'JetBrains Mono'">F41.1</div><div style="font-size:10px;color:#e0f2f1;margin:2px 0;font-family:'Syne',sans-serif">Ansiedad Generalizada</div><div style="background:rgba(0,255,170,.12);border-radius:3px;overflow:hidden;height:4px;margin-top:5px"><div style="width:61%;height:100%;background:#00ffaa"></div></div><div style="font-size:9px;color:#00ffaa;text-align:right;margin-top:2px;font-family:'JetBrains Mono'">61%</div></div>
+        <div style="background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.1);border-radius:6px;padding:8px"><div style="font-size:9px;color:#06b6d4;font-family:'JetBrains Mono'">F60.7</div><div style="font-size:10px;color:#e0f2f1;margin:2px 0;font-family:'Syne',sans-serif">T. dependiente</div><div style="background:rgba(6,182,212,.1);border-radius:3px;overflow:hidden;height:4px;margin-top:5px"><div style="width:38%;height:100%;background:#06b6d4"></div></div><div style="font-size:9px;color:#06b6d4;text-align:right;margin-top:2px;font-family:'JetBrains Mono'">38%</div></div>
       </div>
     </div>
   </div>
 </div>
 </template>
-
 <template id="m2">
 <div class="mock-win" style="max-width:320px;margin:0 auto">
   <div class="chrome"><div class="cd r"></div><div class="cd y"></div><div class="cd g"></div><span class="chrome-label">EmotiFlow · Check-in diario</span></div>
   <div style="background:#030d0a;padding:18px 16px">
-    <div style="text-align:center;margin-bottom:14px">
-      <svg viewBox="0 0 200 200" style="width:155px">
-        <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(6,182,212,.08)" stroke-width="1"/>
-        <path d="M100,100 L100,12 A88,88,0,0,1,188,100Z" fill="rgba(239,68,68,.2)" stroke="rgba(239,68,68,.4)" stroke-width="1"/>
-        <path d="M100,100 L188,100 A88,88,0,0,1,100,188Z" fill="rgba(245,158,11,.12)" stroke="rgba(245,158,11,.25)" stroke-width="1"/>
-        <path d="M100,100 L100,188 A88,88,0,0,1,12,100Z" fill="rgba(6,182,212,.25)" stroke="rgba(6,182,212,.5)" stroke-width="1.5"/>
-        <path d="M100,100 L12,100 A88,88,0,0,1,100,12Z" fill="rgba(124,58,237,.12)" stroke="rgba(124,58,237,.25)" stroke-width="1"/>
-        <circle cx="100" cy="100" r="28" fill="#030d0a" stroke="rgba(6,182,212,.25)" stroke-width="1"/>
-        <text x="100" y="97" text-anchor="middle" font-size="11" fill="#06b6d4" font-family="Syne,sans-serif">Calma</text>
-        <text x="100" y="110" text-anchor="middle" font-size="9" fill="#06b6d4" font-family="JetBrains Mono,monospace">72%</text>
-        <text x="100" y="22" text-anchor="middle" font-size="9" fill="#ef4444" font-family="Syne,sans-serif">Estrés</text>
-        <text x="178" y="105" text-anchor="middle" font-size="8" fill="#f59e0b" font-family="Syne,sans-serif">Ansiedad</text>
-        <text x="22" y="105" text-anchor="middle" font-size="8" fill="#7c3aed" font-family="Syne,sans-serif">Tristeza</text>
-        <text x="100" y="183" text-anchor="middle" font-size="8" fill="#06b6d4" font-family="Syne,sans-serif">Calma</text>
-      </svg>
-    </div>
-    <div style="margin-bottom:11px">
-      <div style="font-size:9px;color:rgba(6,182,212,.5);letter-spacing:1.5px;margin-bottom:5px">EVOLUCIÓN 7 DÍAS</div>
-      <svg viewBox="0 0 260 48" style="width:100%">
-        <polyline points="10,36 47,29 84,33 121,21 158,14 195,22 232,10" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/>
-        <circle cx="10" cy="36" r="3" fill="#06b6d4" opacity=".6"/><circle cx="47" cy="29" r="3" fill="#06b6d4" opacity=".7"/><circle cx="84" cy="33" r="3" fill="#06b6d4" opacity=".7"/><circle cx="121" cy="21" r="3" fill="#06b6d4"/><circle cx="158" cy="14" r="3" fill="#06b6d4"/><circle cx="195" cy="22" r="3" fill="#06b6d4"/><circle cx="232" cy="10" r="3.5" fill="#06b6d4" stroke="rgba(6,182,212,.4)" stroke-width="3"/>
-        <text x="10" y="46" font-size="7" fill="#2a4a46" font-family="monospace">L</text><text x="47" y="46" font-size="7" fill="#2a4a46" font-family="monospace">M</text><text x="84" y="46" font-size="7" fill="#2a4a46" font-family="monospace">X</text><text x="121" y="46" font-size="7" fill="#2a4a46" font-family="monospace">J</text><text x="158" y="46" font-size="7" fill="#2a4a46" font-family="monospace">V</text><text x="195" y="46" font-size="7" fill="#2a4a46" font-family="monospace">S</text><text x="232" y="46" font-size="7" fill="#06b6d4" font-family="monospace">D</text>
-      </svg>
-    </div>
-    <div style="background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.2);border-radius:8px;padding:10px 12px">
-      <div style="font-size:10px;color:#06b6d4;font-weight:500;margin-bottom:4px;font-family:'Syne',sans-serif">🎯 Técnica recomendada ahora</div>
-      <div style="font-size:11px;color:#e0f2f1;margin-bottom:7px;font-family:'Syne',sans-serif">Respiración 4-7-8 · 5 minutos</div>
-      <div style="background:rgba(6,182,212,.12);border-radius:4px;overflow:hidden;height:4px"><div style="width:68%;height:100%;background:#06b6d4;border-radius:4px"></div></div>
-      <div style="font-size:9px;color:#06b6d4;text-align:right;margin-top:3px;font-family:'JetBrains Mono'">68% completado</div>
-    </div>
+    <div style="text-align:center;margin-bottom:14px"><svg viewBox="0 0 200 200" style="width:155px"><circle cx="100" cy="100" r="88" fill="none" stroke="rgba(6,182,212,.08)" stroke-width="1"/><path d="M100,100 L100,12 A88,88,0,0,1,188,100Z" fill="rgba(239,68,68,.2)" stroke="rgba(239,68,68,.4)" stroke-width="1"/><path d="M100,100 L188,100 A88,88,0,0,1,100,188Z" fill="rgba(245,158,11,.12)" stroke="rgba(245,158,11,.25)" stroke-width="1"/><path d="M100,100 L100,188 A88,88,0,0,1,12,100Z" fill="rgba(6,182,212,.25)" stroke="rgba(6,182,212,.5)" stroke-width="1.5"/><path d="M100,100 L12,100 A88,88,0,0,1,100,12Z" fill="rgba(124,58,237,.12)" stroke="rgba(124,58,237,.25)" stroke-width="1"/><circle cx="100" cy="100" r="28" fill="#030d0a" stroke="rgba(6,182,212,.25)" stroke-width="1"/><text x="100" y="97" text-anchor="middle" font-size="11" fill="#06b6d4" font-family="Syne,sans-serif">Calma</text><text x="100" y="110" text-anchor="middle" font-size="9" fill="#06b6d4" font-family="JetBrains Mono,monospace">72%</text><text x="100" y="22" text-anchor="middle" font-size="9" fill="#ef4444" font-family="Syne,sans-serif">Estrés</text><text x="178" y="105" text-anchor="middle" font-size="8" fill="#f59e0b" font-family="Syne,sans-serif">Ansiedad</text><text x="22" y="105" text-anchor="middle" font-size="8" fill="#7c3aed" font-family="Syne,sans-serif">Tristeza</text><text x="100" y="183" text-anchor="middle" font-size="8" fill="#06b6d4" font-family="Syne,sans-serif">Calma</text></svg></div>
+    <div style="margin-bottom:11px"><div style="font-size:9px;color:rgba(6,182,212,.5);letter-spacing:1.5px;margin-bottom:5px">EVOLUCIÓN 7 DÍAS</div><svg viewBox="0 0 260 48" style="width:100%"><polyline points="10,36 47,29 84,33 121,21 158,14 195,22 232,10" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linejoin="round"/><circle cx="10" cy="36" r="3" fill="#06b6d4" opacity=".6"/><circle cx="47" cy="29" r="3" fill="#06b6d4" opacity=".7"/><circle cx="84" cy="33" r="3" fill="#06b6d4" opacity=".7"/><circle cx="121" cy="21" r="3" fill="#06b6d4"/><circle cx="158" cy="14" r="3" fill="#06b6d4"/><circle cx="195" cy="22" r="3" fill="#06b6d4"/><circle cx="232" cy="10" r="3.5" fill="#06b6d4" stroke="rgba(6,182,212,.4)" stroke-width="3"/><text x="10" y="46" font-size="7" fill="#2a4a46" font-family="monospace">L</text><text x="47" y="46" font-size="7" fill="#2a4a46" font-family="monospace">M</text><text x="84" y="46" font-size="7" fill="#2a4a46" font-family="monospace">X</text><text x="121" y="46" font-size="7" fill="#2a4a46" font-family="monospace">J</text><text x="158" y="46" font-size="7" fill="#2a4a46" font-family="monospace">V</text><text x="195" y="46" font-size="7" fill="#2a4a46" font-family="monospace">S</text><text x="232" y="46" font-size="7" fill="#06b6d4" font-family="monospace">D</text></svg></div>
+    <div style="background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.2);border-radius:8px;padding:10px 12px"><div style="font-size:10px;color:#06b6d4;font-weight:500;margin-bottom:4px;font-family:'Syne',sans-serif">🎯 Técnica recomendada ahora</div><div style="font-size:11px;color:#e0f2f1;margin-bottom:7px;font-family:'Syne',sans-serif">Respiración 4-7-8 · 5 minutos</div><div style="background:rgba(6,182,212,.12);border-radius:4px;overflow:hidden;height:4px"><div style="width:68%;height:100%;background:#06b6d4;border-radius:4px"></div></div><div style="font-size:9px;color:#06b6d4;text-align:right;margin-top:3px;font-family:'JetBrains Mono'">68% completado</div></div>
   </div>
 </div>
 </template>
-
 <template id="m3">
 <div class="mock-win">
   <div class="chrome"><div class="cd r"></div><div class="cd y"></div><div class="cd g"></div><span class="chrome-label">Biotipos Temperamentales — Resultados</span></div>
   <div style="background:#0c0800;display:flex;height:330px">
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(245,158,11,.1);padding:16px">
-      <svg viewBox="0 0 200 200" style="width:180px">
-        <polygon points="100,20 180,100 140,170 60,170 20,100" fill="none" stroke="rgba(245,158,11,.1)" stroke-width="1"/>
-        <polygon points="100,44 156,100 128,154 72,154 44,100" fill="none" stroke="rgba(245,158,11,.08)" stroke-width="1"/>
-        <polygon points="100,68 132,100 116,138 84,138 68,100" fill="none" stroke="rgba(245,158,11,.06)" stroke-width="1"/>
-        <polygon points="100,26 168,96 108,164 68,147 26,94" fill="rgba(245,158,11,.15)" stroke="#f59e0b" stroke-width="2"/>
-        <circle cx="100" cy="26" r="4" fill="#f59e0b"/><circle cx="168" cy="96" r="4" fill="#f59e0b"/><circle cx="108" cy="164" r="4" fill="#f59e0b"/><circle cx="68" cy="147" r="4" fill="#f59e0b"/><circle cx="26" cy="94" r="4" fill="#f59e0b"/>
-        <text x="100" y="14" text-anchor="middle" font-size="9" fill="#f59e0b" font-family="Syne,sans-serif">Melancólico</text>
-        <text x="186" y="100" text-anchor="start" font-size="8" fill="#4d8c84" font-family="Syne,sans-serif">Colérico</text>
-        <text x="114" y="180" text-anchor="middle" font-size="8" fill="#4d8c84" font-family="Syne,sans-serif">Flemático</text>
-        <text x="14" y="100" text-anchor="end" font-size="8" fill="#4d8c84" font-family="Syne,sans-serif">Sanguíneo</text>
-      </svg>
-    </div>
-    <div style="width:185px;padding:14px 12px;display:flex;flex-direction:column;gap:8px;overflow:hidden">
-      <div style="font-size:9px;color:rgba(245,158,11,.5);letter-spacing:1.5px">PERFIL DETECTADO</div>
-      <div style="background:rgba(245,158,11,.09);border:1px solid rgba(245,158,11,.25);border-radius:7px;padding:10px;text-align:center">
-        <div style="font-size:22px;font-weight:800;color:#f59e0b;font-family:'Syne',sans-serif;letter-spacing:-1px">62%</div>
-        <div style="font-size:11px;color:#d4a010;margin-top:2px;font-family:'Syne',sans-serif">MELANCÓLICO</div>
-        <div style="font-size:9px;color:#4d8c84;margin-top:4px">Secundario: Flemático 24%</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:5px">
-        <div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;flex-shrink:0"></div><span style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">Melancólico</span><span style="font-size:9px;color:#f59e0b;margin-left:auto;font-family:'JetBrains Mono'">62%</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:#06b6d4;flex-shrink:0"></div><span style="font-size:10px;color:#4d8c84;font-family:'Syne',sans-serif">Flemático</span><span style="font-size:9px;color:#06b6d4;margin-left:auto;font-family:'JetBrains Mono'">24%</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:#00ffaa;flex-shrink:0"></div><span style="font-size:10px;color:#4d8c84;font-family:'Syne',sans-serif">Sanguíneo</span><span style="font-size:9px;color:#00ffaa;margin-left:auto;font-family:'JetBrains Mono'">10%</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:#ef4444;flex-shrink:0"></div><span style="font-size:10px;color:#4d8c84;font-family:'Syne',sans-serif">Colérico</span><span style="font-size:9px;color:#ef4444;margin-left:auto;font-family:'JetBrains Mono'">4%</span></div>
-      </div>
-      <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:6px;padding:8px;margin-top:4px">
-        <div style="font-size:9px;color:#f59e0b;margin-bottom:5px;font-family:'Syne',sans-serif">🗺️ Plan de mejora</div>
-        <div style="font-size:9px;color:#4d8c84;line-height:1.55;font-family:'Syne',sans-serif">· Rutina matutina estructurada<br>· Journaling emocional semanal<br>· Exposición gradual social</div>
-      </div>
-    </div>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(245,158,11,.1);padding:16px"><svg viewBox="0 0 200 200" style="width:180px"><polygon points="100,20 180,100 140,170 60,170 20,100" fill="none" stroke="rgba(245,158,11,.1)" stroke-width="1"/><polygon points="100,44 156,100 128,154 72,154 44,100" fill="none" stroke="rgba(245,158,11,.08)" stroke-width="1"/><polygon points="100,68 132,100 116,138 84,138 68,100" fill="none" stroke="rgba(245,158,11,.06)" stroke-width="1"/><polygon points="100,26 168,96 108,164 68,147 26,94" fill="rgba(245,158,11,.15)" stroke="#f59e0b" stroke-width="2"/><circle cx="100" cy="26" r="4" fill="#f59e0b"/><circle cx="168" cy="96" r="4" fill="#f59e0b"/><circle cx="108" cy="164" r="4" fill="#f59e0b"/><circle cx="68" cy="147" r="4" fill="#f59e0b"/><circle cx="26" cy="94" r="4" fill="#f59e0b"/><text x="100" y="14" text-anchor="middle" font-size="9" fill="#f59e0b" font-family="Syne,sans-serif">Melancólico</text><text x="186" y="100" text-anchor="start" font-size="8" fill="#4d8c84" font-family="Syne,sans-serif">Colérico</text><text x="114" y="180" text-anchor="middle" font-size="8" fill="#4d8c84" font-family="Syne,sans-serif">Flemático</text><text x="14" y="100" text-anchor="end" font-size="8" fill="#4d8c84" font-family="Syne,sans-serif">Sanguíneo</text></svg></div>
+    <div style="width:185px;padding:14px 12px;display:flex;flex-direction:column;gap:8px;overflow:hidden"><div style="font-size:9px;color:rgba(245,158,11,.5);letter-spacing:1.5px">PERFIL DETECTADO</div><div style="background:rgba(245,158,11,.09);border:1px solid rgba(245,158,11,.25);border-radius:7px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#f59e0b;font-family:'Syne',sans-serif;letter-spacing:-1px">62%</div><div style="font-size:11px;color:#d4a010;margin-top:2px;font-family:'Syne',sans-serif">MELANCÓLICO</div><div style="font-size:9px;color:#4d8c84;margin-top:4px">Secundario: Flemático 24%</div></div><div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;flex-shrink:0"></div><span style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">Melancólico</span><span style="font-size:9px;color:#f59e0b;margin-left:auto;font-family:'JetBrains Mono'">62%</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:#06b6d4;flex-shrink:0"></div><span style="font-size:10px;color:#4d8c84;font-family:'Syne',sans-serif">Flemático</span><span style="font-size:9px;color:#06b6d4;margin-left:auto;font-family:'JetBrains Mono'">24%</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:#00ffaa;flex-shrink:0"></div><span style="font-size:10px;color:#4d8c84;font-family:'Syne',sans-serif">Sanguíneo</span><span style="font-size:9px;color:#00ffaa;margin-left:auto;font-family:'JetBrains Mono'">10%</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:7px;height:7px;border-radius:50%;background:#ef4444;flex-shrink:0"></div><span style="font-size:10px;color:#4d8c84;font-family:'Syne',sans-serif">Colérico</span><span style="font-size:9px;color:#ef4444;margin-left:auto;font-family:'JetBrains Mono'">4%</span></div></div><div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:6px;padding:8px;margin-top:4px"><div style="font-size:9px;color:#f59e0b;margin-bottom:5px;font-family:'Syne',sans-serif">🗺️ Plan de mejora</div><div style="font-size:9px;color:#4d8c84;line-height:1.55;font-family:'Syne',sans-serif">· Rutina matutina estructurada<br>· Journaling emocional semanal<br>· Exposición gradual social</div></div></div>
   </div>
 </div>
 </template>
-
 <template id="m4">
 <div class="mock-win">
   <div class="chrome"><div class="cd r"></div><div class="cd y"></div><div class="cd g"></div><span class="chrome-label">CMBviral — Dashboard de automatización</span></div>
   <div style="background:#0a0014;min-height:330px;padding:14px">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:13px">
-      <div style="background:rgba(236,72,153,.08);border:1px solid rgba(236,72,153,.2);border-radius:7px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#ec4899;font-family:'Syne',sans-serif">54</div>
-        <div style="font-size:9px;color:#4d8c84;margin-top:2px">Temas hoy</div>
-      </div>
-      <div style="background:rgba(236,72,153,.08);border:1px solid rgba(236,72,153,.2);border-radius:7px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#ec4899;font-family:'Syne',sans-serif">8.2</div>
-        <div style="font-size:9px;color:#4d8c84;margin-top:2px">Score viral avg</div>
-      </div>
-      <div style="background:rgba(0,255,170,.05);border:1px solid rgba(0,255,170,.15);border-radius:7px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#00ffaa;font-family:'Syne',sans-serif">3</div>
-        <div style="font-size:9px;color:#4d8c84;margin-top:2px">Ebooks listos</div>
-      </div>
-    </div>
-    <div style="margin-bottom:12px">
-      <div style="font-size:9px;color:rgba(236,72,153,.5);letter-spacing:1.5px;margin-bottom:6px">TRENDING TOPICS — Priorizados</div>
-      <div style="background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.22);border-radius:5px;padding:7px 9px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:10px;color:#f0c0d8;font-family:'Syne',sans-serif">IA reemplaza trabajo creativo</span>
-        <div style="display:flex;gap:8px"><span style="font-size:9px;color:#ec4899;font-family:'JetBrains Mono'">9.4 🔥</span><span style="font-size:9px;color:#00ffaa;font-family:'JetBrains Mono'">8.1</span></div>
-      </div>
-      <div style="background:rgba(236,72,153,.06);border:1px solid rgba(236,72,153,.12);border-radius:5px;padding:7px 9px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:10px;color:#7a4060;font-family:'Syne',sans-serif">ChatGPT para emprender sin capital</span>
-        <div style="display:flex;gap:8px"><span style="font-size:9px;color:#ec4899;font-family:'JetBrains Mono'">8.7</span><span style="font-size:9px;color:#00ffaa;font-family:'JetBrains Mono'">7.9</span></div>
-      </div>
-      <div style="padding:6px 9px;display:flex;justify-content:space-between">
-        <span style="font-size:10px;color:#2a4a46;font-family:'Syne',sans-serif">Rutina matutina alta performance</span>
-        <div style="display:flex;gap:8px"><span style="font-size:9px;color:#2a4a46;font-family:'JetBrains Mono'">7.2</span><span style="font-size:9px;color:#2a4a46;font-family:'JetBrains Mono'">6.8</span></div>
-      </div>
-    </div>
-    <div>
-      <div style="font-size:9px;color:rgba(236,72,153,.5);letter-spacing:1.5px;margin-bottom:7px">PIPELINE DE AGENTES</div>
-      <div style="display:flex;align-items:center;gap:4px">
-        <div style="background:rgba(236,72,153,.12);border:1px solid rgba(236,72,153,.28);border-radius:5px;padding:5px 7px;text-align:center;flex:1"><div style="font-size:8px;color:#ec4899;font-family:'JetBrains Mono'">TrendHunter</div><div class="pls" style="width:5px;height:5px;border-radius:50%;background:#00ffaa;margin:3px auto 0"></div></div>
-        <div style="color:#ec4899;font-size:11px">→</div>
-        <div style="background:rgba(236,72,153,.09);border:1px solid rgba(236,72,153,.2);border-radius:5px;padding:5px 7px;text-align:center;flex:1"><div style="font-size:8px;color:#ec4899;font-family:'JetBrains Mono'">ViralityScorer</div><div class="pls" style="width:5px;height:5px;border-radius:50%;background:#00ffaa;margin:3px auto 0;animation-delay:.4s"></div></div>
-        <div style="color:#ec4899;font-size:11px">→</div>
-        <div style="background:rgba(236,72,153,.07);border:1px solid rgba(236,72,153,.15);border-radius:5px;padding:5px 7px;text-align:center;flex:1"><div style="font-size:8px;color:#ec4899;font-family:'JetBrains Mono'">HookLab</div><div class="pls" style="width:5px;height:5px;border-radius:50%;background:#00ffaa;margin:3px auto 0;animation-delay:.8s"></div></div>
-        <div style="color:#ec4899;font-size:11px">→</div>
-        <div style="background:rgba(236,72,153,.05);border:1px solid rgba(236,72,153,.1);border-radius:5px;padding:5px 7px;text-align:center;flex:1"><div style="font-size:8px;color:#ec4899;font-family:'JetBrains Mono'">ScriptAgent</div><div class="pls" style="width:5px;height:5px;border-radius:50%;background:#f59e0b;margin:3px auto 0;animation-delay:1.2s"></div></div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:7px">
-        <span style="font-size:9px;color:#2a4a46">OpenAI <span style="color:#00ffaa">●</span></span>
-        <span style="font-size:9px;color:#2a4a46">Anthropic <span style="color:#00ffaa">●</span></span>
-        <span style="font-size:9px;color:#2a4a46">Gemini <span style="color:#f59e0b">●</span></span>
-      </div>
-    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:13px"><div style="background:rgba(236,72,153,.08);border:1px solid rgba(236,72,153,.2);border-radius:7px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800;color:#ec4899;font-family:'Syne',sans-serif">54</div><div style="font-size:9px;color:#4d8c84;margin-top:2px">Temas hoy</div></div><div style="background:rgba(236,72,153,.08);border:1px solid rgba(236,72,153,.2);border-radius:7px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800;color:#ec4899;font-family:'Syne',sans-serif">8.2</div><div style="font-size:9px;color:#4d8c84;margin-top:2px">Score viral avg</div></div><div style="background:rgba(0,255,170,.05);border:1px solid rgba(0,255,170,.15);border-radius:7px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800;color:#00ffaa;font-family:'Syne',sans-serif">3</div><div style="font-size:9px;color:#4d8c84;margin-top:2px">Ebooks listos</div></div></div>
+    <div style="margin-bottom:12px"><div style="font-size:9px;color:rgba(236,72,153,.5);letter-spacing:1.5px;margin-bottom:6px">TRENDING TOPICS — Priorizados</div><div style="background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.22);border-radius:5px;padding:7px 9px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:10px;color:#f0c0d8;font-family:'Syne',sans-serif">IA reemplaza trabajo creativo</span><div style="display:flex;gap:8px"><span style="font-size:9px;color:#ec4899;font-family:'JetBrains Mono'">9.4 🔥</span><span style="font-size:9px;color:#00ffaa;font-family:'JetBrains Mono'">8.1</span></div></div><div style="background:rgba(236,72,153,.06);border:1px solid rgba(236,72,153,.12);border-radius:5px;padding:7px 9px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:10px;color:#7a4060;font-family:'Syne',sans-serif">ChatGPT para emprender sin capital</span><div style="display:flex;gap:8px"><span style="font-size:9px;color:#ec4899;font-family:'JetBrains Mono'">8.7</span><span style="font-size:9px;color:#00ffaa;font-family:'JetBrains Mono'">7.9</span></div></div><div style="padding:6px 9px;display:flex;justify-content:space-between"><span style="font-size:10px;color:#2a4a46;font-family:'Syne',sans-serif">Rutina matutina alta performance</span><div style="display:flex;gap:8px"><span style="font-size:9px;color:#2a4a46;font-family:'JetBrains Mono'">7.2</span><span style="font-size:9px;color:#2a4a46;font-family:'JetBrains Mono'">6.8</span></div></div></div>
+    <div><div style="font-size:9px;color:rgba(236,72,153,.5);letter-spacing:1.5px;margin-bottom:7px">PIPELINE DE AGENTES</div><div style="display:flex;align-items:center;gap:4px"><div style="background:rgba(236,72,153,.12);border:1px solid rgba(236,72,153,.28);border-radius:5px;padding:5px 7px;text-align:center;flex:1"><div style="font-size:8px;color:#ec4899;font-family:'JetBrains Mono'">TrendHunter</div><div class="pls" style="width:5px;height:5px;border-radius:50%;background:#00ffaa;margin:3px auto 0"></div></div><div style="color:#ec4899;font-size:11px">→</div><div style="background:rgba(236,72,153,.09);border:1px solid rgba(236,72,153,.2);border-radius:5px;padding:5px 7px;text-align:center;flex:1"><div style="font-size:8px;color:#ec4899;font-family:'JetBrains Mono'">ViralityScorer</div><div class="pls" style="width:5px;height:5px;border-radius:50%;background:#00ffaa;margin:3px auto 0;animation-delay:.4s"></div></div><div style="color:#ec4899;font-size:11px">→</div><div style="background:rgba(236,72,153,.07);border:1px solid rgba(236,72,153,.15);border-radius:5px;padding:5px 7px;text-align:center;flex:1"><div style="font-size:8px;color:#ec4899;font-family:'JetBrains Mono'">HookLab</div><div class="pls" style="width:5px;height:5px;border-radius:50%;background:#00ffaa;margin:3px auto 0;animation-delay:.8s"></div></div><div style="color:#ec4899;font-size:11px">→</div><div style="background:rgba(236,72,153,.05);border:1px solid rgba(236,72,153,.1);border-radius:5px;padding:5px 7px;text-align:center;flex:1"><div style="font-size:8px;color:#ec4899;font-family:'JetBrains Mono'">ScriptAgent</div><div class="pls" style="width:5px;height:5px;border-radius:50%;background:#f59e0b;margin:3px auto 0;animation-delay:1.2s"></div></div></div><div style="display:flex;justify-content:flex-end;gap:12px;margin-top:7px"><span style="font-size:9px;color:#2a4a46">OpenAI <span style="color:#00ffaa">●</span></span><span style="font-size:9px;color:#2a4a46">Anthropic <span style="color:#00ffaa">●</span></span><span style="font-size:9px;color:#2a4a46">Gemini <span style="color:#f59e0b">●</span></span></div></div>
   </div>
 </div>
 </template>
-
 <template id="m5">
 <div class="mock-win">
   <div class="chrome"><div class="cd r"></div><div class="cd y"></div><div class="cd g"></div><span class="chrome-label">PsicoTech — Dashboard del paciente</span></div>
   <div style="background:#030f07;display:flex;height:330px">
-    <div style="width:148px;background:#020b05;border-right:1px solid rgba(52,211,153,.09);padding:12px 10px;display:flex;flex-direction:column;gap:9px">
-      <div style="text-align:center;padding:8px 0">
-        <div style="width:34px;height:34px;border-radius:50%;background:rgba(52,211,153,.12);border:2px solid rgba(52,211,153,.25);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:15px">🧑</div>
-        <div style="font-size:11px;color:#e0f2f1;font-family:'Syne',sans-serif">Cristian M.</div>
-        <div style="font-size:9px;color:#2a4a46;margin-top:1px">Protocolo activo</div>
-      </div>
-      <div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.18);border-radius:5px;padding:7px 8px">
-        <div style="font-size:10px;color:#34d399;font-family:'Syne',sans-serif">Ansiedad</div>
-        <div style="font-size:9px;color:#2a4a46">Semana 3 de 8</div>
-        <div style="background:rgba(52,211,153,.12);border-radius:3px;overflow:hidden;height:3px;margin-top:5px"><div style="width:37%;height:100%;background:#34d399"></div></div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-size:20px;margin-bottom:2px">🔥</div>
-        <div style="font-size:16px;font-weight:800;color:#34d399;font-family:'Syne',sans-serif">12</div>
-        <div style="font-size:9px;color:#2a4a46">días de racha</div>
-      </div>
-      <div style="margin-top:auto;border-top:1px solid rgba(52,211,153,.08);padding-top:8px">
-        <div style="display:flex;justify-content:space-between;font-size:9px;color:#2a4a46"><span>Semana</span><span style="color:#34d399;font-family:'JetBrains Mono'">68%</span></div>
-        <div style="background:rgba(52,211,153,.1);border-radius:3px;overflow:hidden;height:3px;margin-top:4px"><div style="width:68%;height:100%;background:#34d399"></div></div>
-      </div>
-    </div>
-    <div style="flex:1;padding:13px;display:flex;flex-direction:column;gap:8px;overflow:hidden">
-      <div style="font-size:9px;color:rgba(52,211,153,.5);letter-spacing:1.5px">TU PLAN DE HOY</div>
-      <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.18);border-radius:7px;padding:10px 12px;display:flex;flex-direction:column;gap:7px">
-        <div style="display:flex;align-items:center;gap:8px">
-          <div style="width:17px;height:17px;border-radius:50%;background:rgba(52,211,153,.2);border:1px solid rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;color:#34d399">✓</div>
-          <div><div style="font-size:10px;color:#34d399;text-decoration:line-through;opacity:.6;font-family:'Syne',sans-serif">📖 Lectura: Regulando el ciclo del miedo</div><div style="font-size:8px;color:#2a4a46">Completado · 08:21</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div style="width:17px;height:17px;border-radius:50%;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);flex-shrink:0"></div>
-          <div><div style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">✅ Tarea: Registro pensamientos automáticos</div><div style="font-size:8px;color:#2a4a46">Pendiente</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div style="width:17px;height:17px;border-radius:50%;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);flex-shrink:0"></div>
-          <div><div style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">🎯 Reto: 5 min respiración cuadrada</div><div style="font-size:8px;color:#2a4a46">Pendiente</div></div>
-        </div>
-      </div>
-      <div style="background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.12);border-radius:7px;padding:9px 11px">
-        <div style="font-size:9px;color:#34d399;margin-bottom:5px">💬 Acompañante IA</div>
-        <div style="font-size:10px;color:#e0f2f1;line-height:1.55;margin-bottom:7px;font-family:'Syne',sans-serif">"¿Cómo te sentiste con el reto de respiración de ayer?"</div>
-        <div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.15);border-radius:4px;padding:5px 9px;display:flex;align-items:center;justify-content:space-between">
-          <span style="font-size:9px;color:#2a4a46;font-family:'Syne',sans-serif">Escribir respuesta...</span>
-          <span class="cur" style="color:#34d399;font-family:monospace">|</span>
-        </div>
-      </div>
-      <div style="margin-top:auto">
-        <div style="font-size:9px;color:rgba(52,211,153,.4);margin-bottom:4px;letter-spacing:1px">Energía semanal</div>
-        <svg viewBox="0 0 220 28" style="width:100%">
-          <polyline points="10,20 40,16 70,18 100,10 130,6 160,12 190,4" fill="none" stroke="#34d399" stroke-width="1.5" stroke-linejoin="round"/>
-          <circle cx="10" cy="20" r="2" fill="#34d399" opacity=".5"/><circle cx="40" cy="16" r="2" fill="#34d399" opacity=".6"/><circle cx="70" cy="18" r="2" fill="#34d399" opacity=".7"/><circle cx="100" cy="10" r="2" fill="#34d399" opacity=".8"/><circle cx="130" cy="6" r="2" fill="#34d399" opacity=".9"/><circle cx="160" cy="12" r="2" fill="#34d399"/><circle cx="190" cy="4" r="2.5" fill="#34d399" stroke="rgba(52,211,153,.4)" stroke-width="2.5"/>
-        </svg>
-      </div>
-    </div>
+    <div style="width:148px;background:#020b05;border-right:1px solid rgba(52,211,153,.09);padding:12px 10px;display:flex;flex-direction:column;gap:9px"><div style="text-align:center;padding:8px 0"><div style="width:34px;height:34px;border-radius:50%;background:rgba(52,211,153,.12);border:2px solid rgba(52,211,153,.25);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:15px">🧑</div><div style="font-size:11px;color:#e0f2f1;font-family:'Syne',sans-serif">Cristian M.</div><div style="font-size:9px;color:#2a4a46;margin-top:1px">Protocolo activo</div></div><div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.18);border-radius:5px;padding:7px 8px"><div style="font-size:10px;color:#34d399;font-family:'Syne',sans-serif">Ansiedad</div><div style="font-size:9px;color:#2a4a46">Semana 3 de 8</div><div style="background:rgba(52,211,153,.12);border-radius:3px;overflow:hidden;height:3px;margin-top:5px"><div style="width:37%;height:100%;background:#34d399"></div></div></div><div style="text-align:center"><div style="font-size:20px;margin-bottom:2px">🔥</div><div style="font-size:16px;font-weight:800;color:#34d399;font-family:'Syne',sans-serif">12</div><div style="font-size:9px;color:#2a4a46">días de racha</div></div><div style="margin-top:auto;border-top:1px solid rgba(52,211,153,.08);padding-top:8px"><div style="display:flex;justify-content:space-between;font-size:9px;color:#2a4a46"><span>Semana</span><span style="color:#34d399;font-family:'JetBrains Mono'">68%</span></div><div style="background:rgba(52,211,153,.1);border-radius:3px;overflow:hidden;height:3px;margin-top:4px"><div style="width:68%;height:100%;background:#34d399"></div></div></div></div>
+    <div style="flex:1;padding:13px;display:flex;flex-direction:column;gap:8px;overflow:hidden"><div style="font-size:9px;color:rgba(52,211,153,.5);letter-spacing:1.5px">TU PLAN DE HOY</div><div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.18);border-radius:7px;padding:10px 12px;display:flex;flex-direction:column;gap:7px"><div style="display:flex;align-items:center;gap:8px"><div style="width:17px;height:17px;border-radius:50%;background:rgba(52,211,153,.2);border:1px solid rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;color:#34d399">✓</div><div><div style="font-size:10px;color:#34d399;text-decoration:line-through;opacity:.6;font-family:'Syne',sans-serif">📖 Lectura: Regulando el ciclo del miedo</div><div style="font-size:8px;color:#2a4a46">Completado · 08:21</div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="width:17px;height:17px;border-radius:50%;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);flex-shrink:0"></div><div><div style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">✅ Tarea: Registro pensamientos automáticos</div><div style="font-size:8px;color:#2a4a46">Pendiente</div></div></div><div style="display:flex;align-items:center;gap:8px"><div style="width:17px;height:17px;border-radius:50%;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);flex-shrink:0"></div><div><div style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">🎯 Reto: 5 min respiración cuadrada</div><div style="font-size:8px;color:#2a4a46">Pendiente</div></div></div></div><div style="background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.12);border-radius:7px;padding:9px 11px"><div style="font-size:9px;color:#34d399;margin-bottom:5px">💬 Acompañante IA</div><div style="font-size:10px;color:#e0f2f1;line-height:1.55;margin-bottom:7px;font-family:'Syne',sans-serif">"¿Cómo te sentiste con el reto de respiración de ayer?"</div><div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.15);border-radius:4px;padding:5px 9px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:9px;color:#2a4a46;font-family:'Syne',sans-serif">Escribir respuesta...</span><span class="cur" style="color:#34d399;font-family:monospace">|</span></div></div><div style="margin-top:auto"><div style="font-size:9px;color:rgba(52,211,153,.4);margin-bottom:4px;letter-spacing:1px">Energía semanal</div><svg viewBox="0 0 220 28" style="width:100%"><polyline points="10,20 40,16 70,18 100,10 130,6 160,12 190,4" fill="none" stroke="#34d399" stroke-width="1.5" stroke-linejoin="round"/><circle cx="10" cy="20" r="2" fill="#34d399" opacity=".5"/><circle cx="40" cy="16" r="2" fill="#34d399" opacity=".6"/><circle cx="70" cy="18" r="2" fill="#34d399" opacity=".7"/><circle cx="100" cy="10" r="2" fill="#34d399" opacity=".8"/><circle cx="130" cy="6" r="2" fill="#34d399" opacity=".9"/><circle cx="160" cy="12" r="2" fill="#34d399"/><circle cx="190" cy="4" r="2.5" fill="#34d399" stroke="rgba(52,211,153,.4)" stroke-width="2.5"/></svg></div></div>
   </div>
 </div>
 </template>
-
 <template id="m6">
 <div class="mock-win">
   <div class="chrome"><div class="cd r"></div><div class="cd y"></div><div class="cd g"></div><span class="chrome-label">SalesFlow AI — Coach activo en llamada</span></div>
   <div style="background:#0a0500;min-height:330px;padding:14px">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:13px">
-      <div style="background:rgba(249,124,58,.07);border:1px solid rgba(249,124,58,.18);border-radius:7px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#f97c3a;font-family:'Syne',sans-serif">12</div>
-        <div style="font-size:9px;color:#4d8c84;margin-top:2px">Llamadas hoy</div>
-      </div>
-      <div style="background:rgba(249,124,58,.07);border:1px solid rgba(249,124,58,.18);border-radius:7px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#f97c3a;font-family:'Syne',sans-serif">34%</div>
-        <div style="font-size:9px;color:#4d8c84;margin-top:2px">Tasa de cierre</div>
-      </div>
-      <div style="background:rgba(0,255,170,.05);border:1px solid rgba(0,255,170,.14);border-radius:7px;padding:10px;text-align:center">
-        <div style="font-size:13px;font-weight:700;color:#00ffaa;margin-top:2px;font-family:'Syne',sans-serif">Bajo 🟢</div>
-        <div style="font-size:9px;color:#4d8c84;margin-top:2px">Estrés promedio</div>
-      </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:13px"><div style="background:rgba(249,124,58,.07);border:1px solid rgba(249,124,58,.18);border-radius:7px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800;color:#f97c3a;font-family:'Syne',sans-serif">12</div><div style="font-size:9px;color:#4d8c84;margin-top:2px">Llamadas hoy</div></div><div style="background:rgba(249,124,58,.07);border:1px solid rgba(249,124,58,.18);border-radius:7px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800;color:#f97c3a;font-family:'Syne',sans-serif">34%</div><div style="font-size:9px;color:#4d8c84;margin-top:2px">Tasa de cierre</div></div><div style="background:rgba(0,255,170,.05);border:1px solid rgba(0,255,170,.14);border-radius:7px;padding:10px;text-align:center"><div style="font-size:13px;font-weight:700;color:#00ffaa;margin-top:2px;font-family:'Syne',sans-serif">Bajo 🟢</div><div style="font-size:9px;color:#4d8c84;margin-top:2px">Estrés promedio</div></div></div>
+    <div style="margin-bottom:12px"><div style="font-size:9px;color:rgba(249,124,58,.5);letter-spacing:1.5px;margin-bottom:7px">LLAMADA EN CURSO — Cliente: Empresa ABC</div><div style="background:rgba(249,124,58,.05);border:1px solid rgba(249,124,58,.14);border-radius:7px;padding:10px 12px"><div style="display:flex;align-items:flex-end;gap:2px;height:22px;margin-bottom:8px"><div class="wave" style="height:10px;background:#f97c3a;opacity:.6;animation-delay:.0s"></div><div class="wave" style="height:17px;background:#f97c3a;animation-delay:.06s"></div><div class="wave" style="height:13px;background:#f97c3a;opacity:.8;animation-delay:.12s"></div><div class="wave" style="height:20px;background:#f97c3a;animation-delay:.18s"></div><div class="wave" style="height:15px;background:#f97c3a;animation-delay:.24s"></div><div class="wave" style="height:9px;background:#f97c3a;opacity:.7;animation-delay:.3s"></div><div class="wave" style="height:18px;background:#f97c3a;opacity:.9;animation-delay:.36s"></div><span style="font-size:9px;color:#f97c3a;margin-left:7px;font-family:'JetBrains Mono'">04:23 ●</span></div><div style="display:flex;flex-direction:column;gap:5px"><div style="background:rgba(249,124,58,.08);border-left:2px solid #f97c3a;padding:5px 8px;border-radius:0 4px 4px 0"><span style="font-size:10px;color:#f97c3a">💡 </span><span style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">Usa técnica de espejo — cliente menciona "rentabilidad"</span></div><div style="background:rgba(239,68,68,.06);border-left:2px solid #ef4444;padding:5px 8px;border-radius:0 4px 4px 0"><span style="font-size:10px;color:#ef4444">🚨 </span><span style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">Objeción de precio detectada — activar script B3</span></div></div></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div style="background:rgba(249,124,58,.05);border:1px solid rgba(249,124,58,.13);border-radius:7px;padding:10px;text-align:center"><div style="font-size:9px;color:#4d8c84;margin-bottom:6px">Score bienestar</div><svg viewBox="0 0 80 48" style="width:75px"><path d="M10,43 A35,35,0,0,1,70,43" fill="none" stroke="rgba(249,124,58,.12)" stroke-width="8" stroke-linecap="round"/><path d="M10,43 A35,35,0,0,1,62,20" fill="none" stroke="#f97c3a" stroke-width="8" stroke-linecap="round"/><text x="40" y="42" text-anchor="middle" font-size="13" fill="#f97c3a" font-family="Syne,sans-serif" font-weight="800">78</text></svg></div><div style="background:rgba(0,255,170,.04);border:1px solid rgba(0,255,170,.12);border-radius:7px;padding:10px"><div style="font-size:9px;color:#4d8c84;margin-bottom:5px">🏆 Top vendedor</div><div style="font-size:11px;color:#34d399;margin-bottom:3px;font-family:'Syne',sans-serif">Cristian M.</div><div style="font-size:9px;color:#2a4a46">42 cierres · mes</div><div style="background:rgba(0,255,170,.1);border-radius:3px;overflow:hidden;height:3px;margin-top:6px"><div style="width:85%;height:100%;background:#00ffaa"></div></div></div></div>
+  </div>
+</div>
+</template>
+<template id="m7">
+<div class="mock-win">
+  <div class="chrome"><div class="cd r"></div><div class="cd y"></div><div class="cd g"></div><span class="chrome-label">CMBtest — Portafolio psicométrico</span></div>
+  <div style="background:#0a0814;display:flex;height:330px;overflow:hidden">
+    <div style="width:155px;background:#070512;border-right:1px solid rgba(167,139,250,.1);padding:10px 9px;display:flex;flex-direction:column;gap:5px;overflow:hidden">
+      <div style="font-size:9px;color:rgba(167,139,250,.5);letter-spacing:1.5px;margin-bottom:6px">INSTRUMENTOS</div>
+      <div style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.28);border-radius:5px;padding:7px 9px"><div style="font-size:10px;color:#a78bfa;font-family:'JetBrains Mono'">WISC-V</div><div style="font-size:8px;color:#4d8c84;margin-top:2px">Inteligencia · Activo</div><div class="pls" style="width:6px;height:6px;border-radius:50%;background:#00ffaa;margin-top:4px;display:inline-block"></div></div>
+      <div style="background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.15);border-radius:5px;padding:6px 9px"><div style="font-size:10px;color:#c4b5fd;font-family:'JetBrains Mono'">BDI-II</div><div style="font-size:8px;color:#4d8c84;margin-top:2px">Depresión · Cargado</div></div>
+      <div style="background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.15);border-radius:5px;padding:6px 9px"><div style="font-size:10px;color:#c4b5fd;font-family:'JetBrains Mono'">STAI</div><div style="font-size:8px;color:#4d8c84;margin-top:2px">Ansiedad · Cargado</div></div>
+      <div style="padding:5px 9px"><div style="font-size:9px;color:#2a4a46">SCL-90-R</div></div>
+      <div style="padding:5px 9px"><div style="font-size:9px;color:#2a4a46">MMPI-2</div></div>
+      <div style="padding:5px 9px"><div style="font-size:9px;color:#2a4a46">RORSCHACH</div></div>
+      <div style="margin-top:auto;border-top:1px solid rgba(167,139,250,.08);padding-top:8px"><div style="font-size:9px;color:rgba(167,139,250,.5)">20+ instrumentos</div><div style="font-size:8px;color:#2a4a46;margin-top:1px">6 áreas clínicas</div></div>
     </div>
-    <div style="margin-bottom:12px">
-      <div style="font-size:9px;color:rgba(249,124,58,.5);letter-spacing:1.5px;margin-bottom:7px">LLAMADA EN CURSO — Cliente: Empresa ABC</div>
-      <div style="background:rgba(249,124,58,.05);border:1px solid rgba(249,124,58,.14);border-radius:7px;padding:10px 12px">
-        <div style="display:flex;align-items:flex-end;gap:2px;height:22px;margin-bottom:8px">
-          <div class="wave" style="height:10px;background:#f97c3a;opacity:.6;animation-delay:.0s"></div>
-          <div class="wave" style="height:17px;background:#f97c3a;animation-delay:.06s"></div>
-          <div class="wave" style="height:13px;background:#f97c3a;opacity:.8;animation-delay:.12s"></div>
-          <div class="wave" style="height:20px;background:#f97c3a;animation-delay:.18s"></div>
-          <div class="wave" style="height:15px;background:#f97c3a;animation-delay:.24s"></div>
-          <div class="wave" style="height:9px;background:#f97c3a;opacity:.7;animation-delay:.3s"></div>
-          <div class="wave" style="height:18px;background:#f97c3a;opacity:.9;animation-delay:.36s"></div>
-          <span style="font-size:9px;color:#f97c3a;margin-left:7px;font-family:'JetBrains Mono'">04:23 ●</span>
-        </div>
+    <div style="flex:1;display:flex;flex-direction:column;border-right:1px solid rgba(167,139,250,.08)">
+      <div style="display:flex;gap:0;border-bottom:1px solid rgba(167,139,250,.1)">
+        <div style="padding:7px 14px;font-size:9px;color:#a78bfa;border-bottom:2px solid #a78bfa;font-family:'JetBrains Mono'">WISC-V</div>
+        <div style="padding:7px 14px;font-size:9px;color:#4d8c84;font-family:'JetBrains Mono'">BDI-II</div>
+        <div style="padding:7px 14px;font-size:9px;color:#4d8c84;font-family:'JetBrains Mono'">STAI</div>
+        <div style="padding:7px 14px;font-size:9px;color:#2a4a46;font-family:'JetBrains Mono'">+ Añadir</div>
+      </div>
+      <div style="flex:1;padding:12px;overflow:hidden;display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:11px;color:#c4b5fd;font-family:'Syne',sans-serif;font-weight:600">WISC-V · Perfil Intelectual</div><div style="font-size:9px;background:rgba(0,255,170,.1);color:#00ffaa;padding:2px 8px;border-radius:3px;border:1px solid rgba(0,255,170,.2)">Reporte listo</div></div>
         <div style="display:flex;flex-direction:column;gap:5px">
-          <div style="background:rgba(249,124,58,.08);border-left:2px solid #f97c3a;padding:5px 8px;border-radius:0 4px 4px 0"><span style="font-size:10px;color:#f97c3a">💡 </span><span style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">Usa técnica de espejo — cliente menciona "rentabilidad"</span></div>
-          <div style="background:rgba(239,68,68,.06);border-left:2px solid #ef4444;padding:5px 8px;border-radius:0 4px 4px 0"><span style="font-size:10px;color:#ef4444">🚨 </span><span style="font-size:10px;color:#e0f2f1;font-family:'Syne',sans-serif">Objeción de precio detectada — activar script B3</span></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:8px;color:#4d8c84;margin-bottom:3px"><span>Comprensión Verbal (ICV)</span><span style="color:#a78bfa;font-family:'JetBrains Mono'">118</span></div><div style="background:rgba(167,139,250,.1);border-radius:3px;overflow:hidden;height:5px"><div style="width:78%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:3px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:8px;color:#4d8c84;margin-bottom:3px"><span>Razonamiento Perceptual (IRP)</span><span style="color:#a78bfa;font-family:'JetBrains Mono'">112</span></div><div style="background:rgba(167,139,250,.1);border-radius:3px;overflow:hidden;height:5px"><div style="width:70%;height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:3px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:8px;color:#4d8c84;margin-bottom:3px"><span>Memoria de Trabajo (IMT)</span><span style="color:#06b6d4;font-family:'JetBrains Mono'">95</span></div><div style="background:rgba(6,182,212,.1);border-radius:3px;overflow:hidden;height:5px"><div style="width:50%;height:100%;background:#06b6d4;border-radius:3px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:8px;color:#4d8c84;margin-bottom:3px"><span>Velocidad de Procesamiento (IVP)</span><span style="color:#f59e0b;font-family:'JetBrains Mono'">89</span></div><div style="background:rgba(245,158,11,.1);border-radius:3px;overflow:hidden;height:5px"><div style="width:42%;height:100%;background:#f59e0b;border-radius:3px"></div></div></div>
         </div>
+        <div style="background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.18);border-radius:6px;padding:9px 11px;display:flex;align-items:center;justify-content:space-between"><div><div style="font-size:9px;color:rgba(167,139,250,.6)">CIT — Cociente Intelectual Total</div><div style="font-size:20px;font-weight:800;color:#a78bfa;font-family:'Syne',sans-serif;letter-spacing:-1px;margin-top:2px">108</div></div><div style="text-align:right"><div style="font-size:9px;color:#4d8c84">Rango</div><div style="font-size:11px;color:#00ffaa;font-family:'Syne',sans-serif">Promedio Alto</div></div></div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div style="background:rgba(249,124,58,.05);border:1px solid rgba(249,124,58,.13);border-radius:7px;padding:10px;text-align:center">
-        <div style="font-size:9px;color:#4d8c84;margin-bottom:6px">Score bienestar</div>
-        <svg viewBox="0 0 80 48" style="width:75px">
-          <path d="M10,43 A35,35,0,0,1,70,43" fill="none" stroke="rgba(249,124,58,.12)" stroke-width="8" stroke-linecap="round"/>
-          <path d="M10,43 A35,35,0,0,1,62,20" fill="none" stroke="#f97c3a" stroke-width="8" stroke-linecap="round"/>
-          <text x="40" y="42" text-anchor="middle" font-size="13" fill="#f97c3a" font-family="Syne,sans-serif" font-weight="800">78</text>
-        </svg>
-      </div>
-      <div style="background:rgba(0,255,170,.04);border:1px solid rgba(0,255,170,.12);border-radius:7px;padding:10px">
-        <div style="font-size:9px;color:#4d8c84;margin-bottom:5px">🏆 Top vendedor</div>
-        <div style="font-size:11px;color:#34d399;margin-bottom:3px;font-family:'Syne',sans-serif">Cristian M.</div>
-        <div style="font-size:9px;color:#2a4a46">42 cierres · mes</div>
-        <div style="background:rgba(0,255,170,.1);border-radius:3px;overflow:hidden;height:3px;margin-top:6px"><div style="width:85%;height:100%;background:#00ffaa"></div></div>
+    <div style="width:160px;background:#070512;padding:10px 9px;display:flex;flex-direction:column;gap:7px;overflow:hidden">
+      <div style="font-size:9px;color:rgba(167,139,250,.5);letter-spacing:1.5px">INTEGRACIÓN</div>
+      <div style="background:rgba(0,255,170,.06);border:1px solid rgba(0,255,170,.15);border-radius:6px;padding:8px"><div style="font-size:9px;color:#00ffaa;margin-bottom:4px">🔗 Convergencias</div><div style="font-size:8px;color:#4d8c84;line-height:1.55">ICV alto + BDI leve → perfil ansioso-funcional</div></div>
+      <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:6px;padding:8px"><div style="font-size:9px;color:#f59e0b;margin-bottom:4px">⚡ Focos</div><div style="font-size:8px;color:#4d8c84;line-height:1.55">Velocidad procesamiento bajo media — evaluar TDAH</div></div>
+      <div style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.15);border-radius:6px;padding:8px"><div style="font-size:9px;color:#a78bfa;margin-bottom:4px">🤖 IA activa</div><div style="font-size:8px;color:#4d8c84;line-height:1.55">GPT-4o generando informe integrador...</div><div style="margin-top:5px;display:flex;align-items:flex-end;gap:1px;height:10px"><div class="wave" style="height:6px;background:#a78bfa;animation-delay:.0s"></div><div class="wave" style="height:9px;background:#a78bfa;animation-delay:.1s"></div><div class="wave" style="height:7px;background:#a78bfa;animation-delay:.2s"></div><div class="wave" style="height:10px;background:#a78bfa;animation-delay:.3s"></div><div class="wave" style="height:6px;background:#a78bfa;animation-delay:.4s"></div></div></div>
+      <div style="margin-top:auto;border-top:1px solid rgba(167,139,250,.08);padding-top:8px;display:flex;flex-direction:column;gap:4px">
+        <div style="font-size:9px;background:rgba(167,139,250,.1);color:#a78bfa;padding:4px 7px;border-radius:4px;text-align:center">⬇ Exportar Word</div>
+        <div style="font-size:9px;background:rgba(239,68,68,.08);color:#ef4444;padding:4px 7px;border-radius:4px;text-align:center">⬇ Exportar PDF</div>
       </div>
     </div>
   </div>
 </div>
 </template>
 
-<!-- ══ DATA + LOGIC ══ -->
 <script>
 const P = [
   { n:'01', name:'CMBps PBT Integral', sub:'Clinical Copilot · HealthTech', c:'#00ffaa', st:'MVP · Beta Cerrada', sc:'s-mvp', m:'m0', cats:['FastAPI','SQLite','SQLAlchemy','JS Vanilla','WebSockets','D3.js','GPT-4o','Web Speech API'], desc:`CMBps PBT Integral es un expediente clínico electrónico fusionado con IA generativa, diseñado para terapeutas de Tercera Ola (ACT, DBT, CFT). Integra FastAPI con WebSockets bidireccionales para enviar el habla del paciente directamente a GPT-4o. La IA extrae la topografía clínica completa del lenguaje natural — Pensamientos, Emociones, Fisiología, Conductas, Valores — y los mapea en grafos de gravedad con D3.js, organizados por cuadrantes del Estado Mental Funcional (EEMM).`, feats:['🎙️ Co-Piloto (Web Speech API + WebSockets): analiza bloques de diálogo en tiempo real con GPT-4o','🗺️ Mapeo Funcional D3.js con Clustering: redes de correlación en directo por procesos clínicos','🧠 Motor de Proactividad Clínica: detecta vacíos y sugiere preguntas exploratorias al instante','🎯 Intervenciones Dinámicas: recomienda ACT, DBT o CFT filtrados por los nodos activos del paciente','🗄️ Backend FastAPI modular con SQLAlchemy, schemas Pydantic y buscador predictivo inteligente','📝 Notas SOAP estructuradas y tareas personalizadas generadas automáticamente'], metrics:['⚡ Procesa nodos clínicos en < 2 segundos vía WebSocket','🔗 Centraliza evaluación transdiagnóstica: ACT, CFT y DBT','⏱️ Automatiza el 80% del tecleo clínico y diseño de intervenciones'] },
-  { n:'02', name:'PsycoAssist AI', sub:'Copiloto clínico · Salud Mental', c:'#7c3aed', st:'Building', sc:'s-build', m:'m1', cats:['React','OpenAI Whisper','GPT-4o','PostgreSQL','Node.js'], desc:`Copiloto inteligente para psicólogos que graba y transcribe sesiones con Whisper AI, sugiere diagnósticos en tiempo real basados en DSM-5/ICD-11 y genera reportes clínicos, forenses y educacionales completos con un solo clic. Gestiona expedientes clínicos completos con historial, agenda y cumplimiento normativo.`, feats:['🎙 Grabación y transcripción automática con OpenAI Whisper AI','🔍 Sugerencias diagnósticas con % de confianza en tiempo real (DSM-5 / ICD-11)','💬 Preguntas contextuales generadas por GPT-4o durante la entrevista','📁 Gestión completa de expedientes clínicos y agenda de sesiones','📄 Generación de reportes: clínico, forense (SML) y educacional'], metrics:['🎯 Diagnósticos diferenciales con % de confianza en tiempo real','📄 3 tipos de reporte profesional generados automáticamente','⏱️ Transcripción Whisper optimizada para terminología clínica'] },
+  { n:'02', name:'PsycoAssist AI', sub:'Copiloto clínico · Salud Mental', c:'#7c3aed', st:'Building', sc:'s-build', m:'m1', cats:['React','OpenAI Whisper','GPT-4o','PostgreSQL','Node.js'], desc:`Copiloto inteligente para psicólogos que graba y transcribe sesiones con Whisper AI, sugiere diagnósticos en tiempo real basados en DSM-5/ICD-11 y genera reportes clínicos, forenses y educacionales completos con un solo clic.`, feats:['🎙 Grabación y transcripción automática con OpenAI Whisper AI','🔍 Sugerencias diagnósticas con % de confianza en tiempo real (DSM-5 / ICD-11)','💬 Preguntas contextuales generadas por GPT-4o durante la entrevista','📁 Gestión completa de expedientes clínicos y agenda de sesiones','📄 Generación de reportes: clínico, forense (SML) y educacional'], metrics:['🎯 Diagnósticos diferenciales con % de confianza en tiempo real','📄 3 tipos de reporte profesional generados automáticamente','⏱️ Transcripción Whisper optimizada para terminología clínica'] },
   { n:'03', name:'EmotiFlow', sub:'Regulación emocional · Terapia Digital', c:'#06b6d4', st:'Building', sc:'s-build', m:'m2', cats:['React Native','GPT-4o','Firebase','Expo'], desc:`App móvil para medir, comprender y regular emociones. Combina TCC, Mindfulness y ACT potenciados por IA con tracking continuo del estado emocional, intervenciones adaptativas en tiempo real y un dashboard de progreso que visualiza patrones y triggers a lo largo del tiempo.`, feats:['📊 Medición continua del estado emocional con check-ins inteligentes','🧘 Protocolos de regulación personalizados generados por IA','🔄 Seguimiento de patrones y triggers emocionales','🎯 Intervenciones TCC, Mindfulness y ACT adaptativas','📈 Dashboard semanal/mensual de progreso emocional'], metrics:['📱 App nativa iOS + Android con React Native y Expo','🧠 Técnicas validadas: TCC, ACT, Mindfulness y respiración guiada','📊 Emotion tracking continuo con visualización de patrones temporales'] },
   { n:'04', name:'Biotipos Temperamentales', sub:'Evaluación de personalidad · Standalone', c:'#f59e0b', st:'In Development', sc:'s-dev', m:'m3', cats:['HTML/CSS/JS','Canvas API','LocalStorage','Export CSV'], desc:`Herramienta web completamente independiente para evaluar rasgos dominantes de personalidad mediante 20 ítems. Calcula distribución entre cuatro biotipos clásicos y genera informe interpretativo con perfil principal y secundario, fortalezas, riesgos psicológicos, compatibilidad relacional y plan de mejora. Todo en un único archivo HTML sin backend.`, feats:['📋 Test de 20 preguntas con opciones en orden aleatorio','📊 Cálculo automático de porcentajes por biotipo','🕸️ Gráfico radar dinámico dibujado con Canvas API','📄 Informe interpretativo con fortalezas y riesgos por perfil','🤝 Módulo de compatibilidad relacional entre dos biotipos','💾 LocalStorage + exportación completa en CSV'], metrics:['🟢 100% standalone — sin backend, sin internet, sin instalación','📐 4 biotipos temperamentales clásicos (Hipócrates/Galeno)','🎁 4 outputs: informe + gráfico radar + compatibilidad + plan de mejora'] },
   { n:'05', name:'CMBviral', sub:'Automatización de contenido viral · Marketing IA', c:'#ec4899', st:'In Development', sc:'s-dev', m:'m4', cats:['Python 3.11+','Pydantic v2','SQLite','FastAPI','OpenAI API','Anthropic API','Gemini API'], desc:`Plataforma local-first de automatización editorial con 12+ agentes IA especializados. Detecta tendencias desde RSS y fuentes JSON, las puntúa con algoritmos propietarios de virabilidad y retención, genera scripts JSON para videos cortos y produce ebooks semanales Markdown en menos de 30 minutos. Soporte multi-LLM con fallback automático.`, feats:['🔍 Detección de tendencias desde RSS, JSON o fuentes mock en tiempo real','📊 Scoring propietario de virabilidad y retención por tema','🎣 Laboratorio de hooks con variantes creativas de alto impacto','📝 Scripts JSON para videos: hook, cuerpo y CTAs optimizados','📚 Ebooks semanales completos desde tendencias','🤖 12+ agentes: TrendHunter, ViralityScorer, HookLab, ScriptAgent...','🔄 Multi-LLM con fallback automático: OpenAI + Anthropic + Gemini'], metrics:['⚡ Reduce tiempo de ideación de contenido en ~70%','📋 50+ temas priorizados diarios con scoring predictivo','📚 Ebooks semanales completos en < 30 min desde tendencias crudas'] },
   { n:'06', name:'PsicoTech', sub:'Acompañamiento psicológico · TCC con IA', c:'#34d399', st:'In Development', sc:'s-dev', m:'m5', cats:['Python','Django','HTML/CSS','JavaScript','SQLite','OpenAI API'], desc:`Plataforma de apoyo psicológico digital que acompaña al paciente entre sesiones con planes terapéuticos guiados, contenido clínico estructurado y chat IA empático. Asigna automáticamente el protocolo adecuado según la necesidad del usuario y organiza su experiencia con retos calibrados según el nivel de energía del día (1–7).`, feats:['🚪 Onboarding con encuesta de triaje o código/cupón de terapeuta','🎯 Asignación automática de protocolo: ansiedad, estrés, duelo, autoestima...','📅 Dashboard diario con plan personalizado y recursos recomendados','⚡ Retos adaptativos calibrados por nivel de energía (escala 1–7)','💬 Chat IA empático para contención breve y orientación contextual','🔥 Racha diaria, días activos, registros totales e insights semanales'], metrics:['🗂️ 7 protocolos: ansiedad, estrés, duelo, autoestima, ruptura, bienestar, regulación','📦 4 tipos de recurso por módulo: lectura, tarea, video e interacción','🏗️ Arquitectura Django escalable para múltiples terapeutas y pacientes'] },
-  { n:'07', name:'SalesFlow AI', sub:'Coaching IA · Ventas y Performance', c:'#f97c3a', st:'Concept', sc:'s-con', m:'m6', cats:['React','GPT-4o','Analytics','Node.js'], desc:`Plataforma de coaching IA para equipos de ventas que combina gestión del estrés laboral, scripts de persuasión adaptativos y análisis conductual para maximizar performance sin sacrificar el bienestar del vendedor. El coach IA está activo durante cada llamada: detecta objeciones en tiempo real y genera retroalimentación automática post-llamada.`, feats:['🎯 Coach de ventas IA activo durante cada llamada con sugerencias en tiempo real','🧘 Gestión del estrés laboral con técnicas validadas TCC/ACT','💡 Scripts de persuasión e influencia generados y adaptados por IA','🚨 Detección automática de objeciones con protocolo de respuesta sugerido','📊 Análisis de patrones conductuales del equipo completo','🏆 Gamificación del bienestar y performance con rankings de equipo'], metrics:['🎯 Coach IA en llamada: detecta objeciones y sugiere técnica en < 3s','📊 Dashboard de performance + bienestar por vendedor y equipo','🏆 Gamificación que combina métricas de venta con métricas de bienestar'] }
+  { n:'07', name:'SalesFlow AI', sub:'Coaching IA · Ventas y Performance', c:'#f97c3a', st:'Concept', sc:'s-con', m:'m6', cats:['React','GPT-4o','Analytics','Node.js'], desc:`Plataforma de coaching IA para equipos de ventas que combina gestión del estrés laboral, scripts de persuasión adaptativos y análisis conductual para maximizar performance sin sacrificar el bienestar del vendedor.`, feats:['🎯 Coach de ventas IA activo durante cada llamada con sugerencias en tiempo real','🧘 Gestión del estrés laboral con técnicas validadas TCC/ACT','💡 Scripts de persuasión e influencia generados y adaptados por IA','🚨 Detección automática de objeciones con protocolo de respuesta sugerido','📊 Análisis de patrones conductuales del equipo completo','🏆 Gamificación del bienestar y performance con rankings de equipo'], metrics:['🎯 Coach IA en llamada: detecta objeciones y sugiere técnica en < 3s','📊 Dashboard de performance + bienestar por vendedor y equipo','🏆 Gamificación que combina métricas de venta con métricas de bienestar'] },
+  { n:'08', name:'CMBtest', sub:'Psicometría educativa · Suite de evaluación', c:'#a78bfa', st:'In Development', sc:'s-dev', m:'m7', cats:['HTML5','CSS3','JavaScript Vanilla','LocalStorage','OpenRouter API','OpenAI API','Gemini API','Exportación PDF/Word'], desc:`CMBtest es una plataforma educativa de portafolio psicométrico diseñada para organizar, estudiar y simular la aplicación de instrumentos psicológicos en una experiencia web unificada. El sistema agrupa pruebas por áreas clínicas y psicométricas, permite activar múltiples instrumentos en paralelo, capturar respuestas por test y generar reportes individuales con estructura diferenciada. Incluye integración global comparativa para detectar convergencias y focos entre distintas escalas, con IA opcional vía OpenRouter, OpenAI o Gemini. 100% local-first.`, feats:['🗂️ Portafolio integral: 6 grupos de evaluación con 20+ instrumentos por área clínica','📑 Aplicación multi-test: activa varios tests y trabaja cada uno por pestañas en paralelo','👤 Registro de paciente único conectado a reportes e integración final comparativa','🔬 Tests aplicables + módulos educativos: cuestionarios digitalizados y guías de estudio','📄 Reportes individuales por instrumento: salida adaptada a la lógica de cada test','🔗 Integración final comparativa: cruza hallazgos entre escalas, entrevistas y perfiles','🤖 IA opcional: informes finales con OpenRouter, OpenAI o Gemini usando la key del usuario','📤 Exportación en Word y PDF por instrumento con un clic','💡 Tooltips y ayuda contextual: explica qué mide cada test y cómo interpretarlo','🔒 Local-first: datos en navegador, funcional offline, sin backend'], metrics:['🧪 Integra 20+ instrumentos o módulos en una sola plataforma web','⏱️ Centraliza tests, reportes e integración en un único flujo evaluativo','📄 Genera reportes individuales + informe integrador final desde la misma sesión','🔒 Uso offline/local con exportación documental inmediata','🔧 Escalable: nuevos tests y baterías por estructura modular'] }
 ];
 
 function openModal(i) {
@@ -1131,7 +565,6 @@ function handleOverlay(e) {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Scroll reveal
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
